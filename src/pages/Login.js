@@ -67,12 +67,12 @@ function Login() {
             ) : null}
           </div>
           <button type="submit" className="btn btn-primary w-100 mt-3">Login</button>
-          <p
+          {/* <p
             className="mt-5 mb-0 text-center"
             style={{ fontSize: "14px", fontWeight: "400" }}
           >
             Don't have any account ? <br /> <a href="">Create New</a>
-          </p>
+          </p> */}
         </form>
       </div>
     </div>

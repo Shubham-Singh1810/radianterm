@@ -1,14 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
+import logo from "./logo.svg";
+import "./App.css";
+import Login from "./pages/Login";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-    <>
-    {/* <Login/> */}
-    <SignUp/>
-    </>
+    <div className="d-flex">
+      <Sidebar/>
+      <div style={{width:"84%"}}>
+
+      <Navbar/>
+      <Dashboard/>
+      </div>
+    </div>
   );
 }
 
