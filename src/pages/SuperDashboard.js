@@ -2,7 +2,7 @@ import React from "react";
 import CountUp from 'react-countup';
 import ProjectReport from "../components/ProjectReport";
 import AttendenceReport from "../components/AttendenceReport";
-function Dashboard() {
+function SuperDashboard() {
   const statics = [
     {
       name: "Projects",
@@ -54,4 +54,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default SuperDashboard;

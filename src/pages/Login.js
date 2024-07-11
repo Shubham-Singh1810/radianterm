@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup"; // Optional: For validation schema
 
 
-function Login() {
+function Login({setUser}) {
   const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
@@ -19,12 +19,17 @@ function Login() {
     }),
     onSubmit: values => {
       console.log(values);
+      if(values.username=="test@1234" && values.password=="12345"){
+        setUser(true)
+      }else{
+        alert("Invalid login credintials")
+      }
     },
   });
 
   return (
     <div className="vh-100 d-flex justify-content-center align-items-center">
-      <div className="shadow p-5">
+      <div className="customShadow p-5">
         <img src="https://radiantengineering.co/wp-content/uploads/2021/11/radiant-logo-3.png" alt="Logo"/>
         <h5 className="text-center mt-3 mb-4">Welcome Back</h5>
         <form onSubmit={formik.handleSubmit}>
