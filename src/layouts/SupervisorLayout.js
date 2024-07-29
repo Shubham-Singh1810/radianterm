@@ -9,36 +9,9 @@ import ViewAdmin from "../pages/ViewAdmin";
 import ViewSuperviser from "../pages/ViewSuperviser";
 import ViewEmployee from "../pages/ViewEmployee";
 import EditProfile from "../pages/EditProfile";
-function SuperAdminLayout() {
+function SupervisorLayout() {
   const [navItem, setNavItem] = useState([
-    {
-      heading: "Admin",
-      item: [
-        // {
-        //   name: "Add Admin",
-        //   path: "/add-employee",
-        // },
-        {
-          name: "View Admin",
-          path: "/view-admin",
-        },
-      ],
-      showDropDown: false,
-    },
-    {
-      heading: "Supervisor",
-      item: [
-        // {
-        //   name: "Add Supervisor",
-        //   path: "/current-projects",
-        // },
-        {
-          name: "View Supervisor",
-          path: "/view-superviser",
-        },
-      ],
-      showDropDown: false,
-    },
+    
     {
       heading: "Employee",
       item: [
@@ -127,4 +100,4 @@ function SuperAdminLayout() {
   );
 }
 
-export default SuperAdminLayout;
+export default SupervisorLayout;

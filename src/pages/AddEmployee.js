@@ -1,14 +1,15 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
+import { addEmployee } from "../services/user.service";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function AddEmployee() {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     contact: Yup.string().required("Contact is required"),
     role: Yup.string().required("Role is required"),
-    password: Yup.string().required("Password is required"),
-    officialId: Yup.string().required("Official ID is required"),
+    officialID: Yup.string().required("Official ID is required"),
   });
   return (
     <div className=" row m-0 p-0 mt-5 pt-5">
@@ -16,34 +17,12 @@ function AddEmployee() {
         <div className="mx-5">
           <h3>A GROUP OF EFFICIENT AND INNOVATIVE PEOPLE</h3>
           <hr />
-          <img src="https://radiantengineering.co/wp-content/uploads/2021/10/as-1.jpg" style={{height:"200px"}} className="img-fluid mb-2"/>
-          <p>
-            Radiant is an organization which offers civil engineering and
-            architectural consultancy. It is a fast growing firm which has
-            secured a prominent place in west Bengal for its outstanding
-            proficiency in infrastructural as well as in architectural jobs. At
-            present it is engaged in infrastructural jobs which involve
-            development of 25 sqkm. Its architectural jobs span across more than
-            a million sqft.
-          </p>
-          <p>
-            Radiant has all energy of youth and guidance of experienced veterans
-            from specific fields. It has unique complementarities, all required
-            expertise, and long term understanding within the team. Radiant is
-            well equipped with the most advanced software and it certainly
-            follows most sophisticated knowhow in global context. Radiant is a
-            trustworthy name for its excellence, punctuality and all time
-            cooperation.
-          </p>
-          <p>
-            Radiant has its own philosophy of work. It intends to create a
-            healthy living environment by bringing nature close to people and
-            thereby adding humanistic value to the living environment. It
-            emphasis both functional and aesthetic aspects. Radiant believes in
-            pouring passion, dedication and hard work in its assignment and
-            thereby delivering the best value to its client. It intends to build
-            up long term relationship with its client.
-          </p>
+          <img
+            src="https://radiantengineering.co/wp-content/uploads/2021/10/as-1.jpg"
+            style={{ height: "200px" }}
+            className="img-fluid mb-2"
+          />
+          
         </div>
       </div>
       <div className="col-6 d-flex justify-content-center align-items-center">
@@ -53,12 +32,18 @@ function AddEmployee() {
               name: "",
               contact: "",
               role: "",
-              password: "",
-              officialId: "",
+              officialID: "",
             }}
             validationSchema={validationSchema}
-            onSubmit={(values) => {
-              console.log(values);
+            onSubmit={async (values) => {
+              try {
+                let response = await addEmployee(values);
+                if (response.data.message == "Employee Added Successfully!") {
+                  toast.success("Employee Added Successfully!");
+                }
+              } catch (error) {
+                toast.error(error.response.data.error.contact[0])
+              }
             }}
           >
             {({ touched, errors }) => (
@@ -74,16 +59,10 @@ function AddEmployee() {
                         <Field
                           name="name"
                           type="text"
-                          className={`form-control mt-1 mb-3  ${
-                            touched.name && errors.name ? "is-invalid" : ""
-                          }`}
+                          className={`form-control mt-1 mb-3  ${touched.name && errors.name ? "is-invalid" : ""}`}
                           placeholder="Enter your name"
                         />
-                        <ErrorMessage
-                          name="name"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <ErrorMessage name="name" component="div" className="invalid-feedback" />
                       </div>
 
                       <div className="form-group">
@@ -91,18 +70,10 @@ function AddEmployee() {
                         <Field
                           name="contact"
                           type="text"
-                          className={`form-control mt-1 mb-3 ${
-                            touched.contact && errors.contact
-                              ? "is-invalid"
-                              : ""
-                          }`}
+                          className={`form-control mt-1 mb-3 ${touched.contact && errors.contact ? "is-invalid" : ""}`}
                           placeholder="Enter your contact"
                         />
-                        <ErrorMessage
-                          name="contact"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <ErrorMessage name="contact" component="div" className="invalid-feedback" />
                       </div>
 
                       <div className="form-group">
@@ -110,64 +81,30 @@ function AddEmployee() {
                         <Field
                           name="role"
                           as="select"
-                          className={`form-control mt-1 mb-3 ${
-                            touched.role && errors.role ? "is-invalid" : ""
-                          }`}
+                          className={`form-control mt-1 mb-3 ${touched.role && errors.role ? "is-invalid" : ""}`}
                         >
                           <option value="">Select a role</option>
-                          <option value="admin">Admin</option>
-                          <option value="supervisor">Supervisor</option>
-                          <option value="employee">Employee</option>
+                          <option value="2">Admin</option>
+                          <option value="3">Supervisor</option>
+                          <option value="4">Employee</option>
                         </Field>
-                        <ErrorMessage
-                          name="role"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <ErrorMessage name="role" component="div" className="invalid-feedback" />
                       </div>
 
                       <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="officialID">Official ID</label>
                         <Field
-                          name="password"
-                          type="password"
-                          className={`form-control mt-1 mb-3 ${
-                            touched.password && errors.password
-                              ? "is-invalid"
-                              : ""
-                          }`}
-                          placeholder="Enter your password"
-                        />
-                        <ErrorMessage
-                          name="password"
-                          component="div"
-                          className="invalid-feedback"
-                        />
-                      </div>
-
-                      <div className="form-group">
-                        <label htmlFor="officialId">Official ID</label>
-                        <Field
-                          name="officialId"
+                          name="officialID"
                           type="text"
                           className={`form-control mt-1 mb-3 ${
-                            touched.officialId && errors.officialId
-                              ? "is-invalid"
-                              : ""
+                            touched.officialID && errors.officialID ? "is-invalid" : ""
                           }`}
                           placeholder="Enter your official ID"
                         />
-                        <ErrorMessage
-                          name="officialId"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <ErrorMessage name="officialID" component="div" className="invalid-feedback" />
                       </div>
 
-                      <button
-                        type="submit"
-                        className="btn btn-primary w-100 mt-3"
-                      >
+                      <button type="submit" className="btn btn-primary w-100 mt-3">
                         Submit
                       </button>
                     </Form>
@@ -178,6 +115,7 @@ function AddEmployee() {
           </Formik>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

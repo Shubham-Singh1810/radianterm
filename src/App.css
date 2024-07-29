@@ -36,3 +36,13 @@
   box-shadow: none;
 }
 }
+.provileAvtar img{
+  height: 55px;
+  width: 55px;
+  border-radius: 50%;
+  border: .5px dashed gray;
+}
+.editForm label{
+  margin-bottom: 5px;
+  margin-top: 15px;
+}

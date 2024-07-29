@@ -1,6 +1,26 @@
 import React from 'react'
-
+import {useGlobalState} from "../GlobalProvider"
 function ProfileOverview() {
+  const renderRole = (role)=>{
+    if(role=="1"){
+      return(
+        "Super Admin"
+      )
+    }else if(role=="2"){
+      return(
+        "Admin"
+      )
+    }else if(role=="3"){
+      return(
+        "Supervisor"
+      )
+    }else{
+      return (
+        "Emplyee"
+      )
+    }
+  }
+  const {globalState}= useGlobalState();
   return (
     <div className="col-8 ">
         <div className="shadow px-5 py-3 me-5">
@@ -8,87 +28,79 @@ function ProfileOverview() {
             <b>About</b>
           </h2>
           <p>
-            Sunt est soluta temporibus accusantium neque nam maiores cumque
-            temporibus. Tempora libero non est unde veniam est qui dolor. Ut
-            sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga
-            sequi sed ea saepe at unde.
+            {globalState?.user?.about}
           </p>
           <h4 className="mb-3">Profile Details</h4>
           <div className="row">
-          <div className="col-8 row">
-            <div className="col-5 mb-1">
-              <h5 className="text-secondary">Full Name</h5>
+          <div className="col-10 row" >
+            <div className="col-5 ">
+              <p className="text-secondary mb-1">Full Name</p>
             </div>
-            <div className="col-7 mb-1">
-              <h5>Shubham Singh</h5>
+            <div className="col-7 ">
+              <p className='mb-1'>{globalState?.user?.name}</p>
             </div>
-            <div className="col-5 mb-1">
-              <h5 className="text-secondary">Contact</h5>
+            <div className="col-5 ">
+              <p className="text-secondary mb-1">Contact</p>
             </div>
-            <div className="col-7 mb-1">
-              <h5>7762042085</h5>
+            <div className="col-7">
+              <p className='mb-1'>{globalState?.user?.contact}</p>
             </div>
-            <div className="col-5 mb-1">
-              <h5 className="text-secondary">Email</h5>
+            <div className="col-5 ">
+              <p className="text-secondary mb-1">Email</p>
             </div>
-            <div className="col-7 mb-1">
-              <h5>hittheshubham1810@gmail.com</h5>
+            <div className="col-7 ">
+              <p className='mb-1'>{globalState?.user?.email}</p>
             </div>
-            <div className="col-5 mb-1">
-              <h5 className="text-secondary">Role</h5>
+            <div className="col-5 ">
+              <p className="text-secondary mb-1">D.O.B</p>
             </div>
-            <div className="col-7 mb-1">
-              <h5>Admin</h5>
+            <div className="col-7 ">
+              <p className='mb-1'>{globalState?.user?.dob}</p>
             </div>
-            <div className="col-5 mb-1">
-              <h5 className="text-secondary">Designation</h5>
+            <div className="col-5 ">
+              <p className="text-secondary mb-1">Role</p>
             </div>
-            <div className="col-7 mb-1">
-              <h5>Softwere Developer</h5>
+            <div className="col-7">
+              <p className='mb-1'>{renderRole(globalState?.user?.role)}</p>
             </div>
-            <div className="col-5 mb-1">
-              <h5 className="text-secondary">Department</h5>
+            <div className="col-5 ">
+              <p className="text-secondary mb-1">Designation</p>
             </div>
-            <div className="col-7 mb-1">
-              <h5>IT</h5>
+            <div className="col-7 ">
+              <p className='mb-1'>{globalState?.user?.designation}</p>
             </div>
-            <div className="col-5 mb-1">
-              <h5 className="text-secondary">UAN No.</h5>
+            <div className="col-5 ">
+              <p className="text-secondary mb-1">Department</p>
             </div>
-            <div className="col-7 mb-1">
-              <h5>1234567890</h5>
+            <div className="col-7">
+              <p className='mb-1'>{globalState?.user?.department}</p>
             </div>
-            <div className="col-5 mb-1">
-              <h5 className="text-secondary">ESI No.</h5>
+            <div className="col-5">
+              <p className="text-secondary mb-1">UAN No.</p>
             </div>
-            <div className="col-7 mb-1">
-              <h5>1234567890</h5>
+            <div className="col-7">
+              <p className='mb-1'>{globalState?.user?.PFNO}</p>
             </div>
-            <div className="col-5 mb-1">
-              <h5 className="text-secondary">Highest Education</h5>
+            <div className="col-5">
+              <p className="text-secondary mb-1">ESI No.</p>
             </div>
-            <div className="col-7 mb-1">
-              <h5>B.C.A </h5>
+            <div className="col-7">
+              <p className='mb-1'>{globalState?.user?.ESINO}</p>
             </div>
-            <div className="col-5 mb-1">
-              <h5 className="text-secondary">Joining Date</h5>
+            <div className="col-5">
+              <p className="text-secondary mb-1">Highest Education</p>
             </div>
-            <div className="col-7 mb-1">
-              <h5>12/12/2024</h5>
+            <div className="col-7">
+              <p className='mb-1'>{globalState?.user?.education} </p>
+            </div>
+            <div className="col-5">
+              <p className="text-secondary mb-1">Joining Date</p>
+            </div>
+            <div className="col-7">
+              <p className='mb-0'>{globalState?.user?.joiningDate}</p>
             </div>
           </div>
-          <div className="col-4 custom-scrollbar" style={{height:"400px", overflowY:"auto", overflowX:"hidden"}}>
-          {
-            [1, 2, 3,].map((v, i)=>{
-                return(
-                    <div className="mb-3">
-                        <img src="https://radiantengineering.co/wp-content/uploads/2021/11/WG_1-300x169.jpg" className="img-fluid"/>
-                        <p>Card No. {i+1}</p>
-                    </div>
-                )
-            })
-          }
-          </div>
+         
           </div>
           
         </div>

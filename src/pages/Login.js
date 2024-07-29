@@ -1,28 +1,43 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup"; // Optional: For validation schema
-
-
-function Login({setUser}) {
+import {login} from "../services/user.service"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useGlobalState } from "../GlobalProvider";
+function Login() {
+  const { setGlobalState, globalState } = useGlobalState();
   const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      username: '',
+      contact: '',
       password: ''
     },
     validationSchema: Yup.object({
-      username: Yup.string()
-        .required('User Name is requird field'),
+      contact: Yup.string()
+        .required('User Name is requird field').matches(/^[0-9]{10}$/, 'contact must be of 10 digits'),
       password: Yup.string()
         .required('Password is required field')
     }),
-    onSubmit: values => {
-      console.log(values);
-      if(values.username=="test@1234" && values.password=="12345"){
-        setUser(true)
-      }else{
-        alert("Invalid login credintials")
+    onSubmit: async values  => {
+      try {
+        let response = await login(values);
+        if(response?.data?.message=="User Logged In Successfully!"){
+          
+          toast.success(response?.data?.message);
+          setTimeout(()=>{
+            localStorage.setItem("radient_user", JSON.stringify(response?.data?.user));
+            localStorage.setItem("access_token", response?.data?.access_token);
+            setGlobalState({...globalState, user:response.data.user, access_token:response.data.access_token})
+          }, 1500)
+          
+         
+        }else{
+          toast.error(response?.data?.message);
+        }
+      } catch (error) {
+        toast.error("Internal Server Error")
       }
     },
   });
@@ -37,14 +52,14 @@ function Login({setUser}) {
             <label>User Name</label>
             <input
               className="form-control mb-3 mt-1"
-              name="username"
+              name="contact"
               placeholder="Type your username"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.username}
+              value={formik.values.contact}
             />
-            {formik.touched.username && formik.errors.username ? (
-              <div className="text-danger" style={{fontSize:"12px", marginTop:"-15px" , marginBottom:"10px"}}>{formik.errors.username}</div>
+            {formik.touched.contact && formik.errors.contact ? (
+              <div className="text-danger" style={{fontSize:"12px", marginTop:"-15px" , marginBottom:"10px"}}>{formik.errors.contact}</div>
             ) : null}
           </div>
           <div>
@@ -72,14 +87,10 @@ function Login({setUser}) {
             ) : null}
           </div>
           <button type="submit" className="btn btn-primary w-100 mt-3">Login</button>
-          {/* <p
-            className="mt-5 mb-0 text-center"
-            style={{ fontSize: "14px", fontWeight: "400" }}
-          >
-            Don't have any account ? <br /> <a href="">Create New</a>
-          </p> */}
+          
         </form>
       </div>
+      <ToastContainer/>
     </div>
   );
 }
