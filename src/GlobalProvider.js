@@ -10,7 +10,7 @@ export const GlobalStateProvider = ({ children }) => {
   });
   useEffect(() => {
     console.log(JSON.parse(localStorage.getItem("radient_user")))
-    setGlobalState({ ...globalState, user: JSON.parse(localStorage.getItem("radient_user"))});
+    setGlobalState({ ...globalState, user: JSON.parse(localStorage.getItem("radient_user")), access_token:localStorage.getItem("access_token")});
   }, []);
   return <GlobalStateContext.Provider value={{ globalState, setGlobalState }}>{children}</GlobalStateContext.Provider>;
 };
