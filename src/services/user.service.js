@@ -53,7 +53,7 @@ export const signUp = async (formData) => {
 };
 export const editProfile = async (formData) => {
   try {
-    const response = await axios.post(BASE_URL+"edit-profile", formData, config);
+    const response = await axios.post(BASE_URL+"update-profile", formData, config);
     return (response);
   } catch (error) {
     // Handle error (e.g., log or throw an error)

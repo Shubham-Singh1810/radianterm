@@ -34,7 +34,7 @@ function Navbar() {
         <div className="dropdown ">
           <div className="d-flex align-items-center"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <img
-            src="https://bootstrapmade.com/demo/templates/NiceAdmin/assets/img/profile-img.jpg"
+            src={"https://erm.onclicksolution.com/storage/app/public/"+globalState?.user?.photo}
             style={{ height: "35px", width: "35px", borderRadius: "50%" }}
           />
           <h5 className="mb-0 ms-2">{globalState?.user?.name}</h5>

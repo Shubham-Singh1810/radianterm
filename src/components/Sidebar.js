@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {useNavigate, useNavigation} from "react-router-dom"
+
 function Sidebar({navItem, setNavItem}) {
   const navigate = useNavigate()
   
@@ -11,7 +12,7 @@ function Sidebar({navItem, setNavItem}) {
   };
   return (
     <div style={{ width: "20%", background: "whitesmoke" }} className="vh-100">
-      <div className="p-2 d-flex justify-content-center">
+      <div className="p-2 d-flex justify-content-center" onClick={()=>navigate("/")}>
         <img
           src="https://radiantengineering.co/wp-content/uploads/2021/11/radiant-logo-3.png"
           alt="Logo"

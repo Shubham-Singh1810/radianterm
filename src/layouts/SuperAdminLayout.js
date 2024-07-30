@@ -9,6 +9,7 @@ import ViewAdmin from "../pages/ViewAdmin";
 import ViewSuperviser from "../pages/ViewSuperviser";
 import ViewEmployee from "../pages/ViewEmployee";
 import EditProfile from "../pages/EditProfile";
+import AddProject from "../pages/AddProject";
 function SuperAdminLayout() {
   const [navItem, setNavItem] = useState([
     {
@@ -57,6 +58,10 @@ function SuperAdminLayout() {
     {
       heading: "Projects",
       item: [
+        {
+          name: "Add Project",
+          path: "/add-projects",
+        },
         {
           name: "Current Project",
           path: "/current-projects",
@@ -114,6 +119,7 @@ function SuperAdminLayout() {
           <Route path="/view-superviser" element={<ViewSuperviser />} />
           <Route path="/view-employee" element={<ViewEmployee />} />
           <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/add-projects" element={<AddProject />} />
         </Routes>
       </div>
     </div>

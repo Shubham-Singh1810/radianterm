@@ -12,7 +12,7 @@ function UserTable({role}) {
   };
   useEffect(() => {
     getEmployeeListFunc();
-  }, []);
+  }, [role]);
   return (
     <div className="mt-3 mx-4 border rounded shadow-sm">
       <table class="table table-striped">
