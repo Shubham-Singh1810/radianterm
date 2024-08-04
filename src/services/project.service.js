@@ -11,10 +11,20 @@ const config = {
     Authorization: `Bearer ${access_token}`
   },
 };
-
+const getConfig = ()=>{
+  return(
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      },
+    }
+  )
+}
 export const addProject = async (formData) => {
   try {
-    const response = await axios.post(BASE_URL+"add-project" , formData, config);
+    const response = await axios.post(BASE_URL+"add-project" , formData, getConfig());
     return (response);
   } catch (error) {
     // Handle error (e.g., log or throw an error)
@@ -22,5 +32,14 @@ export const addProject = async (formData) => {
     throw error;
   }
 };
-
+export const getProjectList = async (formData) => {
+  try {
+    const response = await axios.get(BASE_URL+"get-projects" , getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
 

@@ -45,7 +45,7 @@ function Sidebar({navItem, setNavItem}) {
                       <p
                         className="mb-2 d-flex align-items-center"
                         style={{ cursor: "pointer" }}
-                        onClick={()=>navigate(value?.path)}
+                        onClick={()=> {value?.popup ? value?.popup(true): navigate(value?.path)}}
                       >
                         <i
                           className="fa fa-circle-o me-2"

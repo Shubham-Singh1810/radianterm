@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { addProject } from "../services/project.service";
+import { getClients } from "../services/user.service";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 const initialValues = {
@@ -34,6 +35,17 @@ const validationSchema = Yup.object({
 
 const AddProject = () =>{
     const navigate = useNavigate();
+    const [clientList, setClientList]=useState()
+  const getClientsList = async () => {
+    try {
+      let response = await getClients();
+      console.log(response)
+      setClientList(response?.data?.clients)
+    } catch (error) {}
+  };
+  useEffect(()=>{
+    getClientsList()
+  }, [])
     const handleSubmit = async (values) => {
         try {
           let response = await addProject(values);
@@ -145,7 +157,16 @@ const AddProject = () =>{
   
                 <div className="form-group col-6 ">
                   <label htmlFor="client">Client</label>
-                  <Field name="client" type="text" className="form-control" />
+                  <Field name="client" as="select" className="form-control">
+                    <option value="">Select</option>
+                    {clientList?.map((v, i)=>{
+                      return(
+                        <option value={v?.name}>{v?.name}</option>
+
+                      )
+                    })}
+                   
+                  </Field>
                   <ErrorMessage
                     name="client"
                     component="div"
