@@ -1,7 +1,8 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import CountUp from 'react-countup';
 import ProjectReport from "../components/ProjectReport";
 import AttendenceReport from "../components/AttendenceReport";
+import { getEmployee } from "../services/user.service";
 function SuperDashboard() {
   const statics = [
     {
@@ -25,6 +26,18 @@ function SuperDashboard() {
       imgPath:"/images/task.png"
     },
   ];
+  const [userList, setUserList]=useState([])
+  const getEmployeeListFunc = async () => {
+    try {
+      let response = await getEmployee();
+      setUserList(response.data.employees);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getEmployeeListFunc();
+  }, []);
   return (
     <div className="">
       <div className="row mx-0 my-3 p-0 ">
@@ -47,7 +60,7 @@ function SuperDashboard() {
         <ProjectReport/>
         </div>
         <div className="col-6">
-        <AttendenceReport/>
+        <AttendenceReport role={1} userList={userList}/>
         </div>
       </div>
     </div>

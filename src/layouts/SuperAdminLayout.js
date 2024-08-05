@@ -10,6 +10,10 @@ import ViewSuperviser from "../pages/ViewSuperviser";
 import ViewEmployee from "../pages/ViewEmployee";
 import EditProfile from "../pages/EditProfile";
 import AddProject from "../pages/AddProject";
+import AddClient from "../pages/AddClient";
+import ViewClients from "../pages/ViewClients";
+import CurrentProject from "../pages/CurrentProject";
+import MarkLeaveApplication from "../pages/MarkLeaveApplication";
 function SuperAdminLayout() {
   const [navItem, setNavItem] = useState([
     {
@@ -78,6 +82,21 @@ function SuperAdminLayout() {
       showDropDown: false,
     },
     {
+      heading: "Client",
+      item: [
+        {
+          name: "Add Client",
+          path: "/add-client",
+        },
+        {
+          name: "View Clients",
+          path: "/view-clients",
+        },
+       
+      ],
+      showDropDown: false,
+    },
+    {
       heading: "Teams",
       item: [
         {
@@ -92,16 +111,13 @@ function SuperAdminLayout() {
       showDropDown: false,
     },
     {
-      heading: "Attendence",
+      heading: "Leave",
       item: [
         {
-          name: "Attendence Report",
-          path: "/current-projects",
+          name: "View Applications",
+          path: "/mark-leave-application",
         },
-        {
-          name: "View Leave Application",
-          path: "/current-projects",
-        },
+       
       ],
       showDropDown: false,
     },
@@ -120,6 +136,10 @@ function SuperAdminLayout() {
           <Route path="/view-employee" element={<ViewEmployee />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/add-projects" element={<AddProject />} />
+          <Route path="/add-client" element={<AddClient />} />
+          <Route path="/view-clients" element={<ViewClients />} />
+          <Route path="/current-projects" element={<CurrentProject />} />
+          <Route path="/mark-leave-application" element={<MarkLeaveApplication />} />
         </Routes>
       </div>
     </div>
