@@ -3,7 +3,18 @@ import axios from 'axios';
 // Define your API base URL
 const BASE_URL = "https://erm.onclicksolution.com/public/api/";
 
-const access_token = localStorage.getItem("access_token")
+const access_token = localStorage.getItem("access_token");
+const getConfig = ()=>{
+  return(
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      },
+    }
+  )
+}
 const config = {
   headers: {
     "Content-Type": "multipart/form-data",
@@ -23,7 +34,7 @@ export const login = async (formData) => {
 };
 export const addEmployee = async (formData) => {
   try {
-    const response = await axios.post(BASE_URL+"add-employee" , formData, config);
+    const response = await axios.post(BASE_URL+"add-employee" , formData, getConfig());
     return (response);
   } catch (error) {
     // Handle error (e.g., log or throw an error)
@@ -33,7 +44,7 @@ export const addEmployee = async (formData) => {
 };
 export const getEmployee = async (formData) => {
   try {
-    const response = await axios.post(BASE_URL+"get-employees" , formData, config);
+    const response = await axios.post(BASE_URL+"get-employees" , formData, getConfig());
     return (response);
   } catch (error) {
     // Handle error (e.g., log or throw an error)
@@ -53,7 +64,7 @@ export const signUp = async (formData) => {
 };
 export const editProfile = async (formData) => {
   try {
-    const response = await axios.post(BASE_URL+"update-profile", formData, config);
+    const response = await axios.post(BASE_URL+"update-profile", formData, getConfig());
     return (response);
   } catch (error) {
     // Handle error (e.g., log or throw an error)
