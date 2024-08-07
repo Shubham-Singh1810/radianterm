@@ -1,7 +1,8 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useGlobalState } from "../GlobalProvider";
 function Navbar() {
+  const navigate = useNavigate()
   const { globalState } = useGlobalState();
   const renderRole = (role)=>{
     if(role=="1"){
@@ -59,7 +60,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <a class="dropdown-item" onClick={()=>{window.location.reload(); localStorage.removeItem("radient_user"); localStorage.removeItem("access_token")}}>
+              <a class="dropdown-item" onClick={()=>{navigate("/"); window.location.reload(); localStorage.removeItem("radient_user"); localStorage.removeItem("access_token")}}>
                 Log out
               </a>
             </li>

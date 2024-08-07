@@ -5,7 +5,9 @@ import {login} from "../services/user.service"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useGlobalState } from "../GlobalProvider";
+import { useNavigate } from "react-router-dom";
 function Login() {
+  const navigate = useNavigate()
   const { setGlobalState, globalState } = useGlobalState();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -24,13 +26,13 @@ function Login() {
       try {
         let response = await login(values);
         if(response?.data?.message=="User Logged In Successfully!"){
-          
           toast.success(response?.data?.message);
           setTimeout(()=>{
             localStorage.setItem("radient_user", JSON.stringify(response?.data?.user));
             localStorage.setItem("access_token", response?.data?.access_token);
             setGlobalState({...globalState, user:response.data.user, access_token:response.data.access_token})
-          }, 1500)
+            navigate("/")
+          }, 500)
           
          
         }else{
