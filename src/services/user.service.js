@@ -4,17 +4,7 @@ import axios from 'axios';
 const BASE_URL = "https://erm.onclicksolution.com/public/api/";
 
 const access_token = localStorage.getItem("access_token");
-const getConfig = ()=>{
-  return(
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Accept: "application/json",
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`
-      },
-    }
-  )
-}
+
 const config = {
   headers: {
     "Content-Type": "multipart/form-data",
@@ -251,6 +241,17 @@ export const getListOfAllLeaveApplication = async () => {
 export const updateLeaveStatus = async (formData) => {
   try {
     const response = await axios.post(BASE_URL+"update-leave-status/"+formData.leaveId, formData,   getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+
+export const addEmpRating = async (formData) => {
+  try {
+    const response = await axios.post(BASE_URL+"rate-employee", formData,   getConfig());
     return (response);
   } catch (error) {
     // Handle error (e.g., log or throw an error)

@@ -43,3 +43,45 @@ export const getProjectList = async (formData) => {
   }
 };
 
+export const addTaskApi = async (formData) => {
+  try {
+    const response = await axios.post(BASE_URL+"create-task" ,formData, getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+
+export const getTaskList = async () => {
+  try {
+    const response = await axios.get(BASE_URL+"list-all-task" , getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+
+export const updateTask = async (id, formData) => {
+  try {
+    const response = await axios.post(BASE_URL+"edit-task-status/"+id ,formData, getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+export const editTask = async (id, formData) => {
+  try {
+    const response = await axios.post(BASE_URL+"edit-task/"+id ,formData, getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};

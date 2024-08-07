@@ -17,6 +17,8 @@ import moment from "moment";
 import {applyLeaveApplication} from "../services/user.service"
 import { useGlobalState } from "../GlobalProvider";
 import { ToastContainer, toast } from "react-toastify";
+import AddTask from "../pages/AddTask";
+import ViewTask from "../pages/ViewTask";
 function EmployeeLayout() {
   const { globalState } = useGlobalState();
   const [applicationForm, setApplicationForm]=useState(false);
@@ -69,6 +71,20 @@ function EmployeeLayout() {
       ],
       showDropDown: false,
     },
+    {
+      heading: "Task",
+      item: [
+        {
+          name: "Add Task",
+          path: "/add-task",
+        },
+        {
+          name: "View Report",
+          path: "/view-task",
+        },
+      ],
+      showDropDown: false,
+    },
   ]);
   const handleDateChange = (date) => {
     setDates(prevDates => [...prevDates, moment(date).format("YYYY MM DD")]);
@@ -109,6 +125,8 @@ const handleApplicationSubmit = async ()=>{
           <Route path="/view-employee" element={<ViewEmployee />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/view-leave-application" element={<ViewLeaveApplicationList />} />
+          <Route path="/add-task" element={<AddTask />} />
+          <Route path="/view-task" element={<ViewTask />} />
         </Routes>
       </div>
       {applicationForm && (

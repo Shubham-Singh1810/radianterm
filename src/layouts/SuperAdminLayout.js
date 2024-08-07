@@ -14,6 +14,8 @@ import AddClient from "../pages/AddClient";
 import ViewClients from "../pages/ViewClients";
 import CurrentProject from "../pages/CurrentProject";
 import MarkLeaveApplication from "../pages/MarkLeaveApplication";
+import AddTask from "../pages/AddTask";
+import ViewTask from "../pages/ViewTask";
 function SuperAdminLayout() {
   const [navItem, setNavItem] = useState([
     {
@@ -121,6 +123,20 @@ function SuperAdminLayout() {
       ],
       showDropDown: false,
     },
+    {
+      heading: "Task",
+      item: [
+        {
+          name: "Add Task",
+          path: "/add-task",
+        },
+        {
+          name: "View Report",
+          path: "/view-task",
+        },
+      ],
+      showDropDown: false,
+    },
   ]);
   return (
     <div className="d-flex">
@@ -140,6 +156,8 @@ function SuperAdminLayout() {
           <Route path="/view-clients" element={<ViewClients />} />
           <Route path="/current-projects" element={<CurrentProject />} />
           <Route path="/mark-leave-application" element={<MarkLeaveApplication />} />
+          <Route path="/add-task" element={<AddTask />} />
+          <Route path="/view-task" element={<ViewTask />} />
         </Routes>
       </div>
     </div>
