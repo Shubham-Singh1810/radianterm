@@ -1,12 +1,12 @@
 import React from 'react'
 import ProjectTable from '../components/ProjectTable'
 
-function CurrentProject() {
+function FutureProject() {
   return (
     <div>
-        <ProjectTable status={1}/>
+        <ProjectTable status={0}/>
     </div>
   )
 }
 
-export default CurrentProject
+export default FutureProject

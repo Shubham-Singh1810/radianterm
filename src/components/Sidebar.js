@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {useNavigate, useNavigation} from "react-router-dom"
+import { useNavigate, useNavigation } from "react-router-dom";
 
-function Sidebar({navItem, setNavItem, showSideBar, setShowSideBar}) {
-  const navigate = useNavigate()
-  
+function Sidebar({ navItem, setNavItem, showSideBar, setShowSideBar }) {
+  const navigate = useNavigate();
+
   const toggleDropdown = (index) => {
     const updatedNavItem = navItem.map((item, i) =>
       i === index ? { ...item, showDropDown: !item.showDropDown } : item
@@ -11,18 +11,36 @@ function Sidebar({navItem, setNavItem, showSideBar, setShowSideBar}) {
     setNavItem(updatedNavItem);
   };
   return (
-    <div  className="vh-100 sideBar">
-      <div className="p-2 d-flex justify-content-center" onClick={()=>navigate("/")}>
+    <div className="vh-100 sideBar">
+      <div
+        className="p-2 d-flex justify-content-center"
+        onClick={() => navigate("/")}
+      >
         <img
           src="https://radiantengineering.co/wp-content/uploads/2021/11/radiant-logo-3.png"
           alt="Logo"
           className="img-fluid"
         />
-        
       </div>
       <hr />
       <div>
-     {window.innerWidth <= 500 && <h1 className="me-4 d-flex text-danger  justify-content-end"><i onClick={()=>setShowSideBar(false)} className="fa fa-close border rounded px-1 shadow-sm"></i></h1>} 
+        {window.innerWidth <= 500 && (
+          <h1 className="me-4 d-flex text-danger  justify-content-end">
+            <i
+              onClick={() => setShowSideBar(false)}
+              className="fa fa-close border rounded px-1 shadow-sm"
+            ></i>
+          </h1>
+        )}
+        <h5
+          className="mb-3 mx-4 mt-4 text-secondary d-flex justify-content-between align-items-center"
+          onClick={() => navigate("/")}
+          style={{ cursor: "pointer" }}
+        >
+          {" "}
+          <span>Dashboard</span>{" "}
+          
+        </h5>
         {navItem?.map((v, i) => {
           return (
             <div className="mx-4 mt-4">
@@ -47,7 +65,11 @@ function Sidebar({navItem, setNavItem, showSideBar, setShowSideBar}) {
                       <p
                         className="mb-2 d-flex align-items-center"
                         style={{ cursor: "pointer" }}
-                        onClick={()=> {value?.popup ? value?.popup(true): navigate(value?.path)}}
+                        onClick={() => {
+                          value?.popup
+                            ? value?.popup(true)
+                            : navigate(value?.path);
+                        }}
                       >
                         <i
                           className="fa fa-circle-o me-2"

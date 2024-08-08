@@ -259,3 +259,24 @@ export const addEmpRating = async (formData) => {
     throw error;
   }
 };
+
+export const getTeamList = async (project_id) => {
+  try {
+    const response = await axios.post(BASE_URL+"list-team-members", {project_id},   getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+export const getTeamListForAdmin = async (project_id) => {
+  try {
+    const response = await axios.post(BASE_URL+"project-wise-team", {project_id},   getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};

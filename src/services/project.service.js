@@ -32,9 +32,9 @@ export const addProject = async (formData) => {
     throw error;
   }
 };
-export const getProjectList = async (formData) => {
+export const getProjectList = async (status) => {
   try {
-    const response = await axios.get(BASE_URL+"get-projects" , getConfig());
+    const response = await axios.get(BASE_URL+"get-projects" , {...getConfig(), params:{status}});
     return (response);
   } catch (error) {
     // Handle error (e.g., log or throw an error)

@@ -4,7 +4,7 @@ function ProjectTable({status}) {
   const [projectList, setProjectList]=useState([])
   const getProjectListFunc = async () => {
     try {
-      let response = await getProjectList({ status: status });
+      let response = await getProjectList( status );
       setProjectList(response.data.projects);
     } catch (error) {
       console.log(error);

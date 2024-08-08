@@ -19,40 +19,20 @@ import { useGlobalState } from "../GlobalProvider";
 import { ToastContainer, toast } from "react-toastify";
 import AddTask from "../pages/AddTask";
 import ViewTask from "../pages/ViewTask";
+import ViewTeamMembers from "../pages/ViewTeamMembers";
 function EmployeeLayout() {
   const { globalState } = useGlobalState();
   const [applicationForm, setApplicationForm] = useState(false);
   const [dates, setDates] = useState([]);
   const [datesCalender, setDatesCalender] = useState([]);
   const [navItem, setNavItem] = useState([
-    {
-      heading: "Projects",
-      item: [
-        {
-          name: "Current Project",
-          path: "/current-projects",
-        },
-        {
-          name: "Future Project",
-          path: "/current-projects",
-        },
-        {
-          name: "Completed Project",
-          path: "/current-projects",
-        },
-      ],
-      showDropDown: false,
-    },
+    
     {
       heading: "Teams",
       item: [
         {
-          name: "View All Members",
-          path: "/current-projects",
-        },
-        {
-          name: "Project Vise Team",
-          path: "/current-projects",
+          name: "View Members",
+          path: "/view-members",
         },
       ],
       showDropDown: false,
@@ -134,6 +114,7 @@ function EmployeeLayout() {
           />
           <Route path="/add-task" element={<AddTask />} />
           <Route path="/view-task" element={<ViewTask />} />
+          <Route path="/view-members" element={<ViewTeamMembers />} />
         </Routes>
       </div>
       {applicationForm && (

@@ -32,13 +32,14 @@ const AddTask = () => {
       let response = await addTaskApi(values);
       if (response?.data?.message == "Task created successfully") {
         toast.success("Task created successfully");
+        navigate("/view-task")
       }
     } catch (error) {}
   };
   const [projectList, setProjectList] = useState([]);
   const getProjectListFunc = async () => {
     try {
-      let response = await getProjectList({ status: 1 });
+      let response = await getProjectList(1);
       setProjectList(response.data.projects);
     } catch (error) {
       console.log(error);

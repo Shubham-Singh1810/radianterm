@@ -16,6 +16,10 @@ import CurrentProject from "../pages/CurrentProject";
 import MarkLeaveApplication from "../pages/MarkLeaveApplication";
 import AddTask from "../pages/AddTask";
 import ViewTask from "../pages/ViewTask";
+import ViewTeamMembers from "../pages/ViewTeamMembers";
+import FutureProject from "../pages/FutureProject";
+import CompletedProject from "../pages/CompletedProject";
+import PartiallyCompletedProject from "../pages/PartiallyCompletedProject";
 function SuperAdminLayout() {
   const [navItem, setNavItem] = useState([
     {
@@ -74,11 +78,15 @@ function SuperAdminLayout() {
         },
         {
           name: "Future Project",
-          path: "/current-projects",
+          path: "/future-projects",
+        },
+        {
+          name: "Partially Completed",
+          path: "/partially-completed-projects",
         },
         {
           name: "Completed Project",
-          path: "/current-projects",
+          path: "/completed-projects",
         },
       ],
       showDropDown: false,
@@ -102,12 +110,8 @@ function SuperAdminLayout() {
       heading: "Teams",
       item: [
         {
-          name: "View All Members",
-          path: "/current-projects",
-        },
-        {
-          name: "Project Vise Team",
-          path: "/current-projects",
+          name: "View Members",
+          path: "/view-members",
         },
       ],
       showDropDown: false,
@@ -155,9 +159,13 @@ function SuperAdminLayout() {
           <Route path="/add-client" element={<AddClient />} />
           <Route path="/view-clients" element={<ViewClients />} />
           <Route path="/current-projects" element={<CurrentProject />} />
+          <Route path="/future-projects" element={<FutureProject />} />
+          <Route path="/completed-projects" element={<CompletedProject />} />
+          <Route path="/partially-completed-projects" element={<PartiallyCompletedProject />} />
           <Route path="/mark-leave-application" element={<MarkLeaveApplication />} />
           <Route path="/add-task" element={<AddTask />} />
           <Route path="/view-task" element={<ViewTask />} />
+          <Route path="/view-members" element={<ViewTeamMembers />} />
         </Routes>
       </div>
     </div>
