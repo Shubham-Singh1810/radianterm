@@ -22,8 +22,8 @@ function ProfileOverview() {
   }
   const {globalState}= useGlobalState();
   return (
-    <div className="col-8 ">
-        <div className="shadow px-5 py-3 me-5">
+    <div className="col-md-8  col-12">
+        <div className="shadow px-md-5 px-3 py-3 mt-3 mt-md-0 me-md-5">
           <h2 className=" mb-4">
             <b>About</b>
           </h2>

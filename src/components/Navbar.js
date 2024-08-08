@@ -60,7 +60,7 @@ function Navbar({setShowSideBar, showSideBar}) {
               </Link>
             </li>
             <li>
-              <a class="dropdown-item" onClick={()=>{navigate("/"); window.location.reload(); localStorage.removeItem("radient_user"); localStorage.removeItem("access_token")}}>
+              <a class="dropdown-item text-danger" onClick={()=>{navigate("/"); window.location.reload(); localStorage.removeItem("radient_user"); localStorage.removeItem("access_token")}}>
                 Log out
               </a>
             </li>

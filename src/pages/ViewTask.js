@@ -69,11 +69,11 @@ function ViewTask() {
   };
   return (
     <>
-      <div className="mt-3 mx-4">
+      <div className="mt-3 mx-md-4 mx-2">
         <div className="row">
           {taskListArr?.map((v, i) => {
             return (
-              <div className="col-6">
+              <div className="col-md-6 col-12">
                 <div className="m-2 shadow-sm border rounded p-3">
                   <p>
                     <span>Project</span> : <span>{v?.project?.name}</span>

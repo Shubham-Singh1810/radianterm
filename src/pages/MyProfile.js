@@ -6,9 +6,9 @@ function MyProfile() {
   const navigate = useNavigate()
   const {globalState}= useGlobalState();
   return (
-    <div className=" row m-0 p-0 mt-5 pt-5">
-      <div className="col-4 ">
-        <div className="mx-5">
+    <div className=" row m-0 p-0 mt-5 pt-md-5">
+      <div className="col-md-4 col-12">
+        <div className="mx-md-5">
           <div className="d-flex" style={{ cursor: "pointer" }}>
             <div className="mx-2 ">
               <b>Overview</b>
