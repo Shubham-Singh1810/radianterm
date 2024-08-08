@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useNavigate, useNavigation} from "react-router-dom"
 
-function Sidebar({navItem, setNavItem}) {
+function Sidebar({navItem, setNavItem, showSideBar, setShowSideBar}) {
   const navigate = useNavigate()
   
   const toggleDropdown = (index) => {
@@ -11,16 +11,18 @@ function Sidebar({navItem, setNavItem}) {
     setNavItem(updatedNavItem);
   };
   return (
-    <div style={{ width: "20%", background: "whitesmoke" }} className="vh-100">
+    <div  className="vh-100 sideBar">
       <div className="p-2 d-flex justify-content-center" onClick={()=>navigate("/")}>
         <img
           src="https://radiantengineering.co/wp-content/uploads/2021/11/radiant-logo-3.png"
           alt="Logo"
           className="img-fluid"
         />
+        
       </div>
       <hr />
       <div>
+     {window.innerWidth <= 500 && <h1 className="me-4 d-flex text-danger  justify-content-end"><i onClick={()=>setShowSideBar(false)} className="fa fa-close border rounded px-1 shadow-sm"></i></h1>} 
         {navItem?.map((v, i) => {
           return (
             <div className="mx-4 mt-4">

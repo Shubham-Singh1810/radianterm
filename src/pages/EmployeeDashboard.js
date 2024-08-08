@@ -102,7 +102,7 @@ useEffect(()=>{
       <div className="row mx-0 my-3 p-0 ">
         {statics?.map((v, i) => {
           return (
-            <div className="col-3 m-0 p-0">
+            <div className="col-lg-3 col-md-6 col-12 m-0 p-0">
               <div className="p-4 m-3 rounded shadow">
                 <p className="text-secondary">
                   <b>{v?.name}</b>
@@ -121,7 +121,7 @@ useEffect(()=>{
       </div>
       <div className="row mx-0 my-3 p-0">
         {!staticsData?.attendanceInReport ? (
-          <div className="col-6">
+          <div className="col-md-6 col-12">
             <div className="border p-3 rounded shadow-sm text-light" style={{ background: "orangered" }}>
               <p>Mark Today's Attendence</p>
               <h5 className="mb-3">{currentTime}</h5>
@@ -157,7 +157,7 @@ useEffect(()=>{
             </div>
           </div>
         ) : (
-          <div className="col-6">
+          <div className="col-md-6 col-12">
             <div className="border p-3 rounded shadow-sm bg-success text-light" style={{ background: "green" }}>
               <p>Mark Out Time</p>
               {!staticsData?.out_time ? <h5 className="mb-3">You have started your day at {staticsData.in_time}</h5>: <h5 className="mb-3"> You have closed your day at {staticsData?.out_time}</h5>}
@@ -179,7 +179,7 @@ useEffect(()=>{
           </div>
         )}
 
-        <div className="col-6">
+        <div className="col-md-6 col-12">
           <AttendenceReport role={4}/>
         </div>
       </div>

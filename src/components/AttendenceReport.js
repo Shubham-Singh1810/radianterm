@@ -69,7 +69,7 @@ function AttendenceReport({role, userList}) {
     return totalHours;
   }
   return (
-    <div className="border p-5">
+    <div className="border p-md-5 p-3 mt-3 md-mt-0">
       
       <div className="d-flex justify-content-end mb-3">
       {role==1 && <select className="" onChange={(e)=>setUserId(e.target.value)}>
@@ -97,6 +97,7 @@ function AttendenceReport({role, userList}) {
           <option value="12">December</option>
         </select>
       </div>
+      <div style={{ overflowX: "auto" }}>
       <div className=" d-flex">
         <div style={{ height: "300px", width: "35px", margin: "1.5px" }}>
           {[10, 8, 6, 4, 2].map((v, i) => {
@@ -144,6 +145,8 @@ function AttendenceReport({role, userList}) {
         })}
       </div>
       <h5 className="text-center mt-2 text-secondary">Shubham attendence report of July</h5>
+      </div>
+      
     </div>
   );
 }

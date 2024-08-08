@@ -1,7 +1,7 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
 import { useGlobalState } from "../GlobalProvider";
-function Navbar() {
+function Navbar({setShowSideBar, showSideBar}) {
   const navigate = useNavigate()
   const { globalState } = useGlobalState();
   const renderRole = (role)=>{
@@ -24,9 +24,9 @@ function Navbar() {
     }
   }
   return (
-    <div className="d-flex align-items-center justify-content-between px-5 py-3 bg-light">
+    <div className="d-flex align-items-center justify-content-between px-md-5 px-3 py-3 bg-light">
       <h5 className="mb-0">
-        <i className="fa fa-bars"></i>
+        <i className="fa fa-bars" onClick={()=>setShowSideBar(!showSideBar)}></i>
       </h5>
       <div className="d-flex align-items-center">
         <h5 className="mb-0">

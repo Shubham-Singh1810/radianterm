@@ -61,9 +61,9 @@ function ViewTask() {
   const handleEditTask = async () => {
     try {
       let response = await editTask(editForm.id, editForm);
-      if(response?.data?.message=='Task updated successfully'){
+      if (response?.data?.message == "Task updated successfully") {
         setShowEditPop(false);
-        getTaskListFunc()
+        getTaskListFunc();
       }
     } catch (error) {}
   };
@@ -196,11 +196,12 @@ function ViewTask() {
 
                 <div className="modal-body row ">
                   <div>
-                    
                     <label className="mb-1 ">Select Priority</label>
                     <select
                       className="form-control"
-                      onChange={(e) => setEditForm({...editForm , priority: e.target.value})}
+                      onChange={(e) =>
+                        setEditForm({ ...editForm, priority: e.target.value })
+                      }
                     >
                       <option value="" label="Select priority" />
                       <option value="Low" label="Low" />
@@ -208,13 +209,30 @@ function ViewTask() {
                       <option value="High" label="High" />
                     </select>
                     <label className="mb-1 mt-3">Task Description</label>
-                    <textarea className="form-control" value={editForm.taskDescription} onChange={(e) => setEditForm({...editForm , taskDescription: e.target.value})}/>
+                    <textarea
+                      className="form-control"
+                      value={editForm.taskDescription}
+                      onChange={(e) =>
+                        setEditForm({
+                          ...editForm,
+                          taskDescription: e.target.value,
+                        })
+                      }
+                    />
                     <label className="mb-1 mt-3">Deadline</label>
-                    <input className="form-control" type="date"  onChange={(e) => setEditForm({...editForm , deadline: e.target.value})}/>
+                    <input
+                      className="form-control"
+                      type="date"
+                      onChange={(e) =>
+                        setEditForm({ ...editForm, deadline: e.target.value })
+                      }
+                    />
                     <label className="mb-1 mt-3">Select Status</label>
                     <select
                       className="form-control"
-                      onChange={(e) => setEditForm({...editForm , status: e.target.value})}
+                      onChange={(e) =>
+                        setEditForm({ ...editForm, status: e.target.value })
+                      }
                     >
                       <option value="">Select</option>
                       <option value="0">No Progress</option>
