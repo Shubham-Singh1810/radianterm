@@ -44,7 +44,7 @@ function MarkLeaveApplication() {
     }
   }
   return (
-    <div className="mt-3 mx-4 border rounded shadow-sm">
+    <div className="mt-3 mx-4 border rounded shadow-sm" style={{overflow:"auto"}}>
       <table class="table table-striped">
         <thead>
           <tr className="">

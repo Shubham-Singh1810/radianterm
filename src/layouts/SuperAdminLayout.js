@@ -142,11 +142,15 @@ function SuperAdminLayout() {
       showDropDown: false,
     },
   ]);
+  const [showSideBar, setShowSideBar] = useState(
+    window.innerWidth > 500 ? true : false
+  );
+
   return (
     <div className="d-flex">
-      <Sidebar navItem={navItem} setNavItem={setNavItem}/>
-      <div style={{ width: "80%" }}>
-        <Navbar />
+       {showSideBar && <Sidebar setShowSideBar={setShowSideBar} showSideBar={showSideBar} navItem={navItem} setNavItem={setNavItem} />}
+      <div style={{ width: showSideBar && window.innerWidth> 500 ? "80%" : "100%" }}>
+        <Navbar setShowSideBar={setShowSideBar} showSideBar={showSideBar} />
         <Routes>
           <Route path="/" element={<SuperDashboard />} />
           <Route path="/add-employee" element={<AddEmployee />} />

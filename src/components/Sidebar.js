@@ -34,7 +34,7 @@ function Sidebar({ navItem, setNavItem, showSideBar, setShowSideBar }) {
         )}
         <h5
           className="mb-3 mx-4 mt-4 text-secondary d-flex justify-content-between align-items-center"
-          onClick={() => navigate("/")}
+          onClick={() =>{setShowSideBar(window.innerWidth<=500 ? false: true); navigate("/")} }
           style={{ cursor: "pointer" }}
         >
           {" "}
@@ -69,6 +69,7 @@ function Sidebar({ navItem, setNavItem, showSideBar, setShowSideBar }) {
                           value?.popup
                             ? value?.popup(true)
                             : navigate(value?.path);
+                            setShowSideBar(window.innerWidth<=500 ? false: true)
                         }}
                       >
                         <i

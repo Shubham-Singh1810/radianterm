@@ -120,7 +120,7 @@ const AddClient = () =>{
           {() => (
             <Form>
               <div className="row">
-                <div className="form-group col-6 ">
+                <div className="form-group col-md-6 col-12 ">
                   <label htmlFor="name">Client Name</label>
                   <Field name="name" type="text" className="form-control" />
                   <ErrorMessage
@@ -130,7 +130,7 @@ const AddClient = () =>{
                   />
                 </div>
   
-                <div className="form-group col-6 ">
+                <div className="form-group col-md-6 col-12">
                   <label htmlFor="website">Website</label>
                   <Field name="website" type="text" className="form-control" />
                   <ErrorMessage

@@ -12,9 +12,9 @@ function AddEmployee() {
     officialID: Yup.string().required("Official ID is required"),
   });
   return (
-    <div className=" row m-0 p-0 mt-5 pt-5">
-      <div className="col-6 ">
-        <div className="mx-5">
+    <div className=" row m-0 p-0 mt-md-5 mt-3 pt-md-5">
+      <div className="col-md-6 col-12">
+        <div className="mx-md-5">
           <h3>A GROUP OF EFFICIENT AND INNOVATIVE PEOPLE</h3>
           <hr />
           <img
@@ -25,8 +25,8 @@ function AddEmployee() {
           
         </div>
       </div>
-      <div className="col-6 d-flex justify-content-center align-items-center">
-        <div className="shadow p-4 rounded" style={{ width: "400px" }}>
+      <div className="col-md-6 d-flex justify-content-center align-items-center">
+        <div className="shadow p--md-4 p-2 my-4 my-md-0 rounded" style={{ width: "400px" }}>
           <Formik
             initialValues={{
               name: "",

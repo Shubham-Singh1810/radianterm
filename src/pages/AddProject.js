@@ -145,7 +145,7 @@ const AddProject = () =>{
           {() => (
             <Form>
               <div className="row">
-                <div className="form-group col-6 ">
+                <div className="form-group col-md-6 col-12 ">
                   <label htmlFor="name">Project Name</label>
                   <Field name="name" type="text" className="form-control" />
                   <ErrorMessage
@@ -155,7 +155,7 @@ const AddProject = () =>{
                   />
                 </div>
   
-                <div className="form-group col-6 ">
+                <div className="form-group col-md-6 col-12 ">
                   <label htmlFor="client">Client</label>
                   <Field name="client" as="select" className="form-control">
                     <option value="">Select</option>
@@ -174,7 +174,7 @@ const AddProject = () =>{
                   />
                 </div>
   
-                <div className="form-group col-6">
+                <div className="form-group col-md-6 col-12">
                   <label htmlFor="location">Location</label>
                   <Field name="location" type="text" className="form-control" />
                   <ErrorMessage
@@ -184,7 +184,7 @@ const AddProject = () =>{
                   />
                 </div>
   
-                <div className="form-group col-6">
+                <div className="form-group col-md-6 col-12">
                   <label htmlFor="startDate">Start Date</label>
                   <Field name="startDate" type="date" className="form-control" />
                   <ErrorMessage
@@ -194,7 +194,7 @@ const AddProject = () =>{
                   />
                 </div>
   
-                <div className="form-group col-6">
+                <div className="form-group col-md-6 col-12">
                   <label htmlFor="endDate">End Date</label>
                   <Field name="endDate" type="date" className="form-control" />
                   <ErrorMessage
@@ -204,7 +204,7 @@ const AddProject = () =>{
                   />
                 </div>
   
-                <div className="form-group col-6">
+                <div className="form-group col-md-6 col-12">
                   <label htmlFor="status">Status</label>
                   <Field name="status" as="select" className="form-control">
                     <option value="">Select</option>
@@ -220,7 +220,7 @@ const AddProject = () =>{
                   />
                 </div>
   
-                <div className="form-group col-6">
+                <div className="form-group col-md-6 col-12">
                   <label htmlFor="projectType">Project Type</label>
   
                   <Field name="projectType" as="select" className="form-control">
@@ -245,7 +245,7 @@ const AddProject = () =>{
                   />
                 </div>
   
-                <div className="form-group col-6">
+                <div className="form-group col-md-6 col-12">
                   <label htmlFor="projectDescription">Project Description</label>
                   <Field
                     name="projectDescription"
@@ -259,7 +259,7 @@ const AddProject = () =>{
                   />
                 </div>
   
-                <div className="form-group col-6">
+                <div className="form-group col-md-6 col-12">
                   <label htmlFor="projectCost">Project Cost</label>
                   <Field
                     name="projectCost"
@@ -273,7 +273,7 @@ const AddProject = () =>{
                   />
                 </div>
   
-                <div className="form-group col-6">
+                <div className="form-group col-md-6 col-12">
                   <label htmlFor="developmentArea">Development Area</label>
                   <Field
                     name="developmentArea"

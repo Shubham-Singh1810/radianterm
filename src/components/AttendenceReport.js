@@ -144,7 +144,7 @@ function AttendenceReport({role, userList}) {
           return <div className="text-center border" style={{margin:"1.5px", width:"12.5px",flexShrink: 0 , fontSize:"10px"}}>{v?.date.split("-")[2]}</div>;
         })}
       </div>
-      <h5 className="text-center mt-2 text-secondary">Shubham attendence report of July</h5>
+      {/* <h5 className="text-center mt-2 text-secondary">Shubham attendence report of July</h5> */}
       </div>
       
     </div>

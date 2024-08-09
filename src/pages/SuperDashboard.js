@@ -43,7 +43,7 @@ function SuperDashboard() {
       <div className="row mx-0 my-3 p-0 ">
         {statics?.map((v, i) => {
           return (
-            <div className="col-3 m-0 p-0">
+            <div className="col-lg-3 col-md-6 col-12 m-0 p-0">
                 <div className="p-4 m-3 rounded shadow">
                 <p className="text-secondary"><b>{v?.name}</b></p>
                 <div className="d-flex align-items-center" style={{fontWeight:"300"}}>
@@ -56,10 +56,10 @@ function SuperDashboard() {
         })}
       </div>
       <div className="row mx-0 my-3 p-0">
-        <div className="col-6">
+        <div className="col-md-6 col-12">
         <ProjectReport/>
         </div>
-        <div className="col-6">
+        <div className="col-md-6 col-12">
         <AttendenceReport role={1} userList={userList}/>
         </div>
       </div>
