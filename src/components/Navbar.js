@@ -18,7 +18,7 @@ function Navbar({ setShowSideBar, showSideBar }) {
   const handleLogout = () => {
     localStorage.removeItem("radient_user");
     localStorage.removeItem("access_token");
-    window.location.href = "https://radiantengineering.co/";
+    window.location.href = "https://erm.radiantengineering.co/";
   };
   return (
     <div className="d-flex align-items-center justify-content-between px-md-5 px-3 py-3 bg-light">
@@ -81,6 +81,7 @@ function Navbar({ setShowSideBar, showSideBar }) {
               <a
                 class="dropdown-item text-danger"
                 onClick={() => handleLogout()}
+                style={{cursor:"pointer"}}
               >
                 Log out
               </a>

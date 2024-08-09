@@ -26,9 +26,16 @@ function UserTable({ role }) {
       let response = await addEmpRating({...formData, userId:ratingUser.id});
       if(response?.data.message=='Rating submitted successfully'){
         toast.success('Rating submitted successfully');
-        setShowRatingPop(false)
+        setShowRatingPop(false);
+      }else if(response?.data.message=='This employee is not in your team'){
+        toast.warning('This employee is not in your team');
+        setShowRatingPop(false);
+      }else{
+        toast.error("Something went wrong")
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Internal Server Error")
+    }
   };
   return (
     <div className="mt-3 mx-4 border rounded shadow-sm" style={{overflow:"auto"}}>

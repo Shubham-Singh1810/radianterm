@@ -48,7 +48,7 @@ const AddTask = () => {
   const [userList, setUserList] = useState([]);
   const getEmployeeListFunc = async () => {
     try {
-      let response = await getEmployee();
+      let response = await getEmployee({role:globalState?.user?.role=="3" && 4});
       setUserList(response.data.employees);
     } catch (error) {
       console.log(error);
