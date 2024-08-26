@@ -81,7 +81,9 @@ function ViewTask() {
                   <p>
                     <span>Assigned By</span> : {v?.assigned_by_user?.name}
                   </p>
-
+                  <p>
+                    <span>Assigned To</span> : {v?.employee?.name}
+                  </p>
                   <p>
                     <span>Priority</span> : {handlePriorityReturn(v?.priority)}
                   </p>

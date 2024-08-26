@@ -69,7 +69,7 @@ function AttendenceReport({role, userList}) {
     return totalHours;
   }
   return (
-    <div className="border p-md-5 p-3 mt-3 md-mt-0">
+    <div className="border p-md-5 p-3 mt-3  mt-md-0">
       
       <div className="d-flex justify-content-end mb-3">
       {role==1 && <select className="" onChange={(e)=>setUserId(e.target.value)}>
@@ -127,7 +127,7 @@ function AttendenceReport({role, userList}) {
                 style={{
                   height:  convertToHours(v?.total_hours)*30,
                   width: "12.5px",
-                  background: convertToHours(v?.total_hours) >=8? "green":"red",
+                  background: convertToHours(v?.total_hours) < 7.5? "red": convertToHours(v?.total_hours) < 8 ?  "yellow": "green",
                   borderRadius: "6px 6px 0px 0px",
                   textAlign:"center"
                   

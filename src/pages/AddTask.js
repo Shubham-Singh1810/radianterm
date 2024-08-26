@@ -86,7 +86,7 @@ const AddTask = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
-              src="https://radiantengineering.co/wp-content/uploads/2024/07/konal-nalah-dam.png"
+              src="https://radiantengineering.co/wp-content/uploads/2024/07/korangNallahDam.png"
               className="d-block w-100"
               alt="..."
               style={{ height: "300px" }}

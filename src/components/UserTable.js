@@ -117,7 +117,7 @@ function UserTable({ role }) {
                 <div className="modal-body row ">
                   <div className="px-2">
                     
-                    <label>Rate Employee</label>
+                    <label>Rate Employee (1.0 to 5.0)</label>
                     <input className="form-control mt-1 mb-2" onChange={(e)=>setFormData({...formData, rating:e.target.value})}/>
                     <label>Select Month</label>
                     <select className=" form-control mt-1 mb-2" onChange={(e)=>setFormData({...formData, month:e.target.value})}>

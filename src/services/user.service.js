@@ -280,3 +280,24 @@ export const getTeamListForAdmin = async (project_id) => {
     throw error;
   }
 };
+
+export const sendNotification = async (formData) => {
+  try {
+    const response = await axios.post(BASE_URL+"send-message-to-all", formData,   getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+export const sendMessage = async (formData) => {
+  try {
+    const response = await axios.post(BASE_URL+"send-message/"+formData?.id, formData,   getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
