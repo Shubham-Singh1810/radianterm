@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import ProjectReport from "../components/ProjectReport";
 import AttendenceReport from "../components/AttendenceReport";
+
 import {
   getEmployee,
   sendNotification,
   sendMessage,
+  getMessage,
+  deleteMessage
 } from "../services/user.service";
 import { ToastContainer, toast } from "react-toastify";
 function SuperDashboard() {
@@ -40,8 +43,18 @@ function SuperDashboard() {
       console.log(error);
     }
   };
+  const [messageList, setMessageList] = useState([]);
+  const handleGetMessage = async () => {
+    try {
+      let response = await getMessage();
+      setMessageList(response?.data?.messages);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     getEmployeeListFunc();
+    handleGetMessage();
   }, []);
   const [showNotificationForm, setShowNotificationForm] = useState(false);
   const [notificationForm, setNotificationForm] = useState({
@@ -56,6 +69,7 @@ function SuperDashboard() {
           response?.data?.message == "Message sent to all users successfully!"
         ) {
           toast.success("Message sent to all users successfully!");
+          handleGetMessage()
           setShowNotificationForm(false);
         } else {
           toast.success("Something went wrong");
@@ -66,9 +80,7 @@ function SuperDashboard() {
     } else {
       try {
         let response = await sendMessage(notificationForm);
-        if (
-          response?.data?.message == "Message sent successfully!"
-        ) {
+        if (response?.data?.message == "Message sent successfully!") {
           toast.success("Message sent successfully!");
           setShowNotificationForm(false);
         } else {
@@ -79,6 +91,26 @@ function SuperDashboard() {
       }
     }
   };
+  const [showMore, setShowMore]=useState(false)
+  const handleDeleteMessage = async(id)=>{
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this message?"
+    );
+  
+    if (!isConfirmed) return;
+    try {
+      let response = await deleteMessage(id)
+      if(response.data.message=="Message deleted successfully!"){
+        toast.success("Message deleted successfully!")
+        handleGetMessage()
+      }else{
+        toast.error("Something went wrong")
+      }
+    } catch (error) {
+      toast.error("Internal Server Error")
+    }
+
+  }
   return (
     <div className="">
       <div className="row mx-0 my-3 p-0 ">
@@ -108,24 +140,10 @@ function SuperDashboard() {
             <div>
               <div className="card shadow-sm ">
                 <div className="card-body">
-                  <div className="d-flex justify-content-between align-items-center">
+                  <div className="d-flex justify-content-between align-items-center mb-4">
                     <div className="d-flex justify-content-between">
                       <div>
-                        <h5 className="card-title">Notifications</h5>
-                        <div className="d-flex my-2 mt-3">
-                          <h6
-                            style={{ cursor: "pointer" }}
-                            className={"badge me-2 bg-primary"}
-                          >
-                            All
-                          </h6>
-                          <h6
-                            style={{ cursor: "pointer" }}
-                            className={"badge me-2 bg-secondary"}
-                          >
-                            Latest
-                          </h6>
-                        </div>
+                        <h5 className="card-title ">Notifications</h5>
                       </div>
                     </div>
                     <button
@@ -176,20 +194,77 @@ function SuperDashboard() {
                     </div>
                   ) : (
                     <div className="list-group">
-                      <a
-                        href="#"
-                        className="list-group-item list-group-item-action"
-                      >
-                        <h6 className="mb-1">Notice</h6>
-
-                        <p className="mb-1">
-                          Aaj sabka off hai aur sabko ghumne jane k liye extra
-                          paisa bhi milega
-                        </p>
-                        <div className="d-flex w-100 justify-content-end">
-                          <small className="">2 min ago</small>
-                        </div>
-                      </a>
+                      {showMore? messageList?.map((v, i) => {
+                        return (
+                          <a
+                            href="#"
+                            className="list-group-item list-group-item-action"
+                          >
+                            <div className="d-flex justify-content-end">
+                            <i className="fa fa-close text-danger border rounded px-1" onClick={()=>handleDeleteMessage(v?.id)} style={{marginBottom:"-20px"}}></i>
+                            </div>
+                            
+                            <div className="d-flex align-items-center">
+                              <img
+                                style={{
+                                  height: "40px",
+                                  width: "40px",
+                                  borderRadius: "50%",
+                                }}
+                                src={
+                                  "https://ermbackend.radiantengineering.co/storage/app/public/" +
+                                  v?.user?.photo
+                                }
+                              />
+                              <div className="ms-3">
+                              <h6 className="mb-0">{v?.user?.name}</h6>
+                              <p className="mb-0">{v?.user?.email}</p>
+                              </div>
+                              
+                            </div>
+                            <p className="mb-1 mt-3">{v?.message}</p>
+                            <div className="d-flex w-100 justify-content-end">
+                              <small className="">{v?.messageTime}</small>
+                            </div>
+                          </a>
+                        );
+                      }): messageList?.slice(0, 3)?.map((v, i) => {
+                        return (
+                          <a
+                            href="#"
+                            className="list-group-item list-group-item-action"
+                          >
+                            <div className="d-flex justify-content-end">
+                            <i className="fa fa-close text-danger border rounded px-1" onClick={()=>handleDeleteMessage(v?.id)} style={{marginBottom:"-20px"}}></i>
+                            </div>
+                            <div className="d-flex align-items-center">
+                              <img
+                                style={{
+                                  height: "40px",
+                                  width: "40px",
+                                  borderRadius: "50%",
+                                }}
+                                src={
+                                  "https://ermbackend.radiantengineering.co/storage/app/public/" +
+                                  v?.user?.photo
+                                }
+                              />
+                              <div className="ms-3">
+                              <h6 className="mb-0">{v?.user?.name}</h6>
+                              <p className="mb-0">{v?.user?.email}</p>
+                              </div>
+                              
+                            </div>
+                            <p className="mb-1 mt-3">{v?.message}</p>
+                            <div className="d-flex w-100 justify-content-end">
+                              <small className="">{v?.messageTime}</small>
+                            </div>
+                          </a>
+                        );
+                      })}
+                      <div className="d-flex justify-content-end mt-3">
+                      <p className="text-primary" onClick={()=>setShowMore(!showMore)} style={{cursor:"pointer"}}><u>Show {!showMore ? "more" : "less"} </u></p>
+                      </div>
                     </div>
                   )}
                 </div>

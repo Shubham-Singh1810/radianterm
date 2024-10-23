@@ -20,13 +20,39 @@ import { ToastContainer, toast } from "react-toastify";
 import AddTask from "../pages/AddTask";
 import ViewTask from "../pages/ViewTask";
 import ViewTeamMembers from "../pages/ViewTeamMembers";
+import FutureProject from "../pages/FutureProject";
+import CurrentProject from "../pages/CurrentProject";
+import CompletedProject from "../pages/CompletedProject";
+import PartiallyCompletedProject from "../pages/PartiallyCompletedProject";
 function EmployeeLayout() {
   const { globalState } = useGlobalState();
   const [applicationForm, setApplicationForm] = useState(false);
   const [dates, setDates] = useState([]);
   const [datesCalender, setDatesCalender] = useState([]);
   const [navItem, setNavItem] = useState([
-    
+    {
+      heading: "Projects",
+      item: [
+        
+        {
+          name: "Current Project",
+          path: "/current-projects",
+        },
+        {
+          name: "Future Project",
+          path: "/future-projects",
+        },
+        {
+          name: "Partially Completed",
+          path: "/partially-completed-projects",
+        },
+        {
+          name: "Completed Project",
+          path: "/completed-projects",
+        },
+      ],
+      showDropDown: false,
+    },
     {
       heading: "Teams",
       item: [
@@ -59,7 +85,7 @@ function EmployeeLayout() {
           path: "/add-task",
         },
         {
-          name: "View Report",
+          name: "View Task",
           path: "/view-task",
         },
       ],
@@ -98,7 +124,7 @@ function EmployeeLayout() {
   return (
     <div className="d-flex">
       {showSideBar && <Sidebar setShowSideBar={setShowSideBar} showSideBar={showSideBar} navItem={navItem} setNavItem={setNavItem} />}
-      <div style={{ width: showSideBar && window.innerWidth> 500 ? "80%" : "100%" }}>
+      <div style={{ width: showSideBar && window.innerWidth> 500 ? "80%" : "100%", height:"100vh", overflow:"auto" }}>
         <Navbar setShowSideBar={setShowSideBar} showSideBar={showSideBar} />
         <Routes>
           <Route path="/" element={<EmployeeDashboard />} />
@@ -115,6 +141,10 @@ function EmployeeLayout() {
           <Route path="/add-task" element={<AddTask />} />
           <Route path="/view-task" element={<ViewTask />} />
           <Route path="/view-members" element={<ViewTeamMembers />} />
+          <Route path="/current-projects" element={<CurrentProject />} />
+          <Route path="/future-projects" element={<FutureProject />} />
+          <Route path="/completed-projects" element={<CompletedProject />} />
+          <Route path="/partially-completed-projects" element={<PartiallyCompletedProject />} />
         </Routes>
       </div>
       {applicationForm && (

@@ -11,7 +11,7 @@ function Sidebar({ navItem, setNavItem, showSideBar, setShowSideBar }) {
     setNavItem(updatedNavItem);
   };
   return (
-    <div className="vh-100 sideBar">
+    <div className=" sideBar" style={{height:"100vh", overflow:"auto"}}>
       <div
         className="p-2 d-flex justify-content-center"
         onClick={() => navigate("/")}

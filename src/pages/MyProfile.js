@@ -20,7 +20,7 @@ function MyProfile() {
           <hr />
           <div className="shadow p-3 text-center">
             <img
-              src={"https://erm.onclicksolution.com/storage/app/public/"+globalState?.user?.photo}
+              src={"https://ermbackend.radiantengineering.co/storage/app/public/"+globalState?.user?.photo}
               className="img-fluid"
               style={{ height: "120px", width: "120px", borderRadius: "50%" }}
             />
@@ -28,10 +28,10 @@ function MyProfile() {
             <h6 className="text-secondary">{globalState?.user?.designation}</h6>
           </div>
           <div className="mt-2">
-            <a className="btn btn-primary btn-sm m-1" target="blank" href={"https://erm.onclicksolution.com/storage/app/public/"+globalState?.user?.pan} style={{textDecoration:"none", color:"white"}} >Pan Card</a>
-            <a className="btn btn-info btn-sm m-1" target="blank" href={"https://erm.onclicksolution.com/storage/app/public/"+globalState?.user?.passbook} style={{textDecoration:"none", color:"white"}} >Bank Passbook</a>
-            <a className="btn btn-warning btn-sm m-1" target="blank" href={"https://erm.onclicksolution.com/storage/app/public/"+globalState?.user?.aadhar} style={{textDecoration:"none", color:"white"}} >Aadhar Card</a>
-            <a className="btn btn-success btn-sm m-1" target="blank" href={"https://erm.onclicksolution.com/storage/app/public/"+globalState?.user?.offerLetter} style={{textDecoration:"none", color:"white"}} >Offer Letter</a>
+            <a className="btn btn-primary btn-sm m-1" target="blank" href={"https://ermbackend.radiantengineering.co/storage/app/public/"+globalState?.user?.pan} style={{textDecoration:"none", color:"white"}} >Pan Card</a>
+            <a className="btn btn-info btn-sm m-1" target="blank" href={"https://ermbackend.radiantengineering.co/storage/app/public/"+globalState?.user?.passbook} style={{textDecoration:"none", color:"white"}} >Bank Passbook</a>
+            <a className="btn btn-warning btn-sm m-1" target="blank" href={"https://ermbackend.radiantengineering.co/storage/app/public/"+globalState?.user?.aadhar} style={{textDecoration:"none", color:"white"}} >Aadhar Card</a>
+            <a className="btn btn-success btn-sm m-1" target="blank" href={"https://ermbackend.radiantengineering.co/storage/app/public/"+globalState?.user?.offerLetter} style={{textDecoration:"none", color:"white"}} >Offer Letter</a>
             
           </div>
         </div>

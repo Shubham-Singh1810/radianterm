@@ -26,7 +26,7 @@ function AddEmployee() {
         </div>
       </div>
       <div className="col-md-6 d-flex justify-content-center align-items-center">
-        <div className="shadow p--md-4 p-2 my-4 my-md-0 rounded" style={{ width: "400px" }}>
+        <div className="shadow p-md-4 p-2 my-4 my-md-0 rounded bg-light" style={{ width: "400px" }}>
           <Formik
             initialValues={{
               name: "",
@@ -85,8 +85,19 @@ function AddEmployee() {
                         >
                           <option value="">Select a role</option>
                           <option value="2">Admin</option>
-                          <option value="3">Supervisor</option>
+                         
                           <option value="4">Employee</option>
+                        </Field>
+                        <ErrorMessage name="role" component="div" className="invalid-feedback" />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="role">Designation</label>
+                        <Field
+                          name="designation"
+                          type="text"
+                          className={`form-control mt-1 mb-3 ${touched.role && errors.role ? "is-invalid" : ""}`}
+                        >
+                          
                         </Field>
                         <ErrorMessage name="role" component="div" className="invalid-feedback" />
                       </div>

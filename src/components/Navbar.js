@@ -21,7 +21,7 @@ function Navbar({ setShowSideBar, showSideBar }) {
     window.location.href = "https://erm.radiantengineering.co/";
   };
   return (
-    <div className="d-flex align-items-center justify-content-between px-md-5 px-3 py-3 bg-light">
+    <div className="d-flex align-items-center justify-content-between px-md-5 px-3 py-3 bg-light" >
       <h5 className="mb-0">
         <i
           className="fa fa-bars"
@@ -42,7 +42,7 @@ function Navbar({ setShowSideBar, showSideBar }) {
           >
             <img
               src={
-                "https://erm.onclicksolution.com/storage/app/public/" +
+                "https://ermbackend.radiantengineering.co/storage/app/public/" +
                 globalState?.user?.photo
               }
               style={{ height: "35px", width: "35px", borderRadius: "50%" }}

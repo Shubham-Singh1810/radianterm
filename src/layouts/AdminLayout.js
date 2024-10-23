@@ -91,7 +91,7 @@ function AdminLayout() {
   return (
     <div className="d-flex">
       <Sidebar navItem={navItem} setNavItem={setNavItem}/>
-      <div style={{ width: "80%" }}>
+      <div style={{ width: "80%", height:"100vh", overflow:"auto" }}>
         <Navbar />
         <Routes>
           <Route path="/" element={<SuperDashboard />} />

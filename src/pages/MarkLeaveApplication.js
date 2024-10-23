@@ -69,7 +69,7 @@ function MarkLeaveApplication() {
                   <div className="d-flex align-items-center">
                     <div className="">
                       <img
-                        src={"https://erm.onclicksolution.com/storage/app/public/" + v?.user?.photo}
+                        src={"https://ermbackend.radiantengineering.co/storage/app/public/" + v?.user?.photo}
                         style={{ height: "33px", width: "35px", borderRadius: "50%" }}
                       />
                     </div>
@@ -89,7 +89,8 @@ function MarkLeaveApplication() {
                 <td className="pt-4">{handleStatus(v?.status)} </td>
                 <td className="pt-4">{v?.comments} </td>
                 <td className="pt-4 text-center">
-                  <i className="fa fa-edit" onClick={()=>{setEditData(v.id); setShowMarkPopup(true)}} ></i>{" "}
+                  <i className="fa fa-edit" onClick={()=>{setEditData(v.id);setFormData({comments:v?.comments,
+    status:v?.status}); setShowMarkPopup(true)}} ></i>{" "}
                 </td>
               </tr>
             );
@@ -115,13 +116,14 @@ function MarkLeaveApplication() {
               <div className="modal-body row ">
                 <div className="px-2">
                     <label>Mark Status</label>
-                     <select className="form-control mb-3" onChange={(e)=>setFormData({...formData, status:e.target.value})}>
-                        <option value="1">Select Action</option>
-                        <option value="1">Approve</option>
-                        <option value="-1">Reject</option>
+                     <select className="form-control mb-3" value={formData?.status} onChange={(e)=>setFormData({...formData, status:e.target.value})}>
+                        <option value="">Select</option>
+                        <option value="0">Applied</option>
+                        <option value="1">Approved</option>
+                        <option value="-1">Rejected</option>
                      </select>
                      <label>Comment</label>
-                     <textarea className="form-control" onChange={(e)=>setFormData({...formData, comments:e.target.value})}/>
+                     <textarea className="form-control" value={formData?.comments} onChange={(e)=>setFormData({...formData, comments:e.target.value})}/>
                      <button className="btn btn-primary w-100 mt-3" onClick={handleLeaveUpdate}>Submit</button>
                 </div>
                   </div>

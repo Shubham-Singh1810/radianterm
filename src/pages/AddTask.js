@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { getEmployee } from "../services/user.service";
 import { useGlobalState } from "../GlobalProvider";
 
-
 const validationSchema = Yup.object({
   project_id: Yup.string().required("Required"),
   empId: Yup.string().required("Required"),
@@ -21,18 +20,18 @@ const AddTask = () => {
   const { setGlobalState, globalState } = useGlobalState();
   const initialValues = {
     project_id: "",
-    empId: globalState?.user?.role == 4 ? globalState?.user?.id : "",
+    empId: globalState?.user?.role == 4 && globalState?.user?.isTL == false  ? globalState?.user?.id : "",
     taskDescription: "",
     priority: "",
     deadline: "",
   };
-  
+
   const handleSubmit = async (values) => {
     try {
       let response = await addTaskApi(values);
       if (response?.data?.message == "Task created successfully") {
         toast.success("Task created successfully");
-        navigate("/view-task")
+        navigate("/view-task");
       }
     } catch (error) {}
   };
@@ -48,7 +47,9 @@ const AddTask = () => {
   const [userList, setUserList] = useState([]);
   const getEmployeeListFunc = async () => {
     try {
-      let response = await getEmployee({role:globalState?.user?.role=="3" && 4});
+      let response = await getEmployee({
+        role: globalState?.user?.role == "4" ? 4 : "",
+      });
       setUserList(response.data.employees);
     } catch (error) {
       console.log(error);
@@ -129,9 +130,9 @@ const AddTask = () => {
         </button>
       </div>
 
-      <div className="container my-5 editForm">
+      <div className="container my-5 editForm bg-light p-5 shadow rounded">
         <h2 className=" text-center ">
-          <b className="text-secondary shadow-sm p-1 rounded">Add New Task</b>
+          <b className="text-secondary  p-1 ">Add New Task</b>
         </h2>
         <Formik
           initialValues={initialValues}
@@ -158,7 +159,7 @@ const AddTask = () => {
                   />
                 </div>
               </div>
-              {globalState?.user?.role != 4 && (
+              {globalState?.user?.role == "4" && globalState?.user?.isTL && (
                 <div className="col-md-6 col-12">
                   <div className="mb-3">
                     <label htmlFor="empId" className="form-label">
@@ -178,7 +179,26 @@ const AddTask = () => {
                   </div>
                 </div>
               )}
-
+              {globalState?.user?.role != "4" && (
+                <div className="col-md-6 col-12">
+                  <div className="mb-3">
+                    <label htmlFor="empId" className="form-label">
+                      Assign To
+                    </label>
+                    <Field as="select" name="empId" className="form-select">
+                      <option value="" label="Select employee" />
+                      {userList?.map((v, i) => {
+                        return <option value={v?.id} label={v?.name} />;
+                      })}
+                    </Field>
+                    <ErrorMessage
+                      name="empId"
+                      component="div"
+                      className="text-danger"
+                    />
+                  </div>
+                </div>
+              )}
               <div className="col-md-6 col-12">
                 <div className="mb-3">
                   <label htmlFor="priority" className="form-label">

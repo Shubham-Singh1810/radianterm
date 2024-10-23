@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Define your API base URL
-const BASE_URL = "https://erm.onclicksolution.com/public/api/";
+// const BASE_URL = "https://ermbackend.radiantengineering.co/public/api/";
+const BASE_URL = "https://ermbackend.radiantengineering.co/public/api/";
 
 const access_token = localStorage.getItem("access_token");
 
@@ -260,6 +261,26 @@ export const addEmpRating = async (formData) => {
   }
 };
 
+export const addTeamLeader = async (formData) => {
+  try {
+    const response = await axios.post(BASE_URL+"assign-tl-to-project", formData,   getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+export const getTeamLeaders = async () => {
+  try {
+    const response = await axios.get(BASE_URL+"list-tl",   getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
 export const getTeamList = async (project_id) => {
   try {
     const response = await axios.post(BASE_URL+"list-team-members", {project_id},   getConfig());
@@ -294,6 +315,36 @@ export const sendNotification = async (formData) => {
 export const sendMessage = async (formData) => {
   try {
     const response = await axios.post(BASE_URL+"send-message/"+formData?.id, formData,   getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+export const getMessage = async () => {
+  try {
+    const response = await axios.get(BASE_URL+"get-message",   getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+export const deleteMessage = async (id) => {
+  try {
+    const response = await axios.delete(BASE_URL+"delete-message/"+id,   getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+export const getEmployeeById = async (id) => {
+  try {
+    const response = await axios.get(BASE_URL+"employees/"+id ,  getConfig());
     return (response);
   } catch (error) {
     // Handle error (e.g., log or throw an error)

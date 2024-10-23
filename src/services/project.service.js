@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Define your API base URL
-const BASE_URL = "https://erm.onclicksolution.com/public/api/";
+const BASE_URL = "https://ermbackend.radiantengineering.co/public/api/";
 
 const access_token = localStorage.getItem("access_token")
 const config = {
@@ -25,6 +25,26 @@ const getConfig = ()=>{
 export const addProject = async (formData) => {
   try {
     const response = await axios.post(BASE_URL+"add-project" , formData, getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+export const getProjectById = async (id) => {
+  try {
+    const response = await axios.get(BASE_URL+"projects/"+id ,  getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+export const editProjectData = async (id, formData) => {
+  try {
+    const response = await axios.post(BASE_URL+"update-projects/"+id , formData, getConfig());
     return (response);
   } catch (error) {
     // Handle error (e.g., log or throw an error)

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { markUserAttendence,employeeAttendenceReport, getMonthlyReportApi } from "../services/user.service";
 import { useGlobalState } from "../GlobalProvider";
-function AttendenceReport({role, userList}) {
+function AttendenceReport({role, userList, hideSelect}) {
   const { globalState } = useGlobalState();
   const data = [
     { date: "01", hours: 1 },
@@ -39,7 +39,13 @@ function AttendenceReport({role, userList}) {
         
     }
   }
-  const [month, setMonth] = useState("08");
+  
+  const [month, setMonth] = useState("");
+  useEffect(() => {
+    const currentMonth = new Date().getMonth() + 1; // Months are 0-indexed (0 = January, 11 = December)
+    const formattedMonth = currentMonth < 10 ? `0${currentMonth}` : `${currentMonth}`; // Ensure two digits
+    setMonth(formattedMonth);
+  }, []);
   const [userId, setUserId]=useState(globalState.user.id)
   useEffect(()=>{
     if(role=="1"){
@@ -70,8 +76,7 @@ function AttendenceReport({role, userList}) {
   }
   return (
     <div className="border p-md-5 p-3 mt-3  mt-md-0">
-      
-      <div className="d-flex justify-content-end mb-3">
+      {!hideSelect && <div className="d-flex justify-content-end mb-3">
       {role==1 && <select className="" onChange={(e)=>setUserId(e.target.value)}>
         <option>Employee </option>
         {userList?.map((v, i)=>{
@@ -96,7 +101,8 @@ function AttendenceReport({role, userList}) {
           <option value="11">November</option>
           <option value="12">December</option>
         </select>
-      </div>
+      </div>}
+      
       <div style={{ overflowX: "auto" }}>
       <div className=" d-flex">
         <div style={{ height: "300px", width: "35px", margin: "1.5px" }}>

@@ -65,26 +65,26 @@ const AddClient = () =>{
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
-              src="https://radiantengineering.co/wp-content/uploads/2024/07/konal-nalah-dam.png"
+              src="/images/korangNallahDam.png"
               className="d-block w-100"
               alt="..."
-              style={{ height: "300px" }}
+              style={{ height: "350px" }}
             />
           </div>
           <div className="carousel-item">
             <img
-              src="https://radiantengineering.co/wp-content/uploads/2024/07/Marine-Drive.png"
+              src="/images/Reeli-Khola-Bridge.png"
               className="d-block w-100"
               alt="..."
-              style={{ height: "300px" }}
+              style={{ height: "350px" }}
             />
           </div>
           <div className="carousel-item">
             <img
-              src="https://radiantengineering.co/wp-content/uploads/2024/07/Reeli-Khola-Bridge.png"
+              src="/images/Marine-Drive.png"
               className="d-block w-100"
               alt="..."
-              style={{ height: "300px" }}
+              style={{ height: "350px" }}
             />
           </div>
         </div>
@@ -108,9 +108,9 @@ const AddClient = () =>{
         </button>
       </div>
   
-      <div className="container my-5 editForm">
+      <div className="container my-5 editForm bg-light p-5 shadow rounded">
         <h2 className=" text-center ">
-          <b className="text-secondary shadow-sm p-1 rounded">Add New Client</b>
+          <b className="text-secondary  p-1 ">Add New Client</b>
         </h2>
         <Formik
           initialValues={initialValues}

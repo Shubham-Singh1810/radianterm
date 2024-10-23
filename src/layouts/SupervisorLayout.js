@@ -120,7 +120,7 @@ function SupervisorLayout() {
   return (
     <div className="d-flex">
        {showSideBar && <Sidebar setShowSideBar={setShowSideBar} showSideBar={showSideBar} navItem={navItem} setNavItem={setNavItem} />}
-      <div style={{ width: showSideBar && window.innerWidth> 500 ? "80%" : "100%" }}>
+      <div style={{ width: showSideBar && window.innerWidth> 500 ? "80%" : "100%", height:"100vh", overflow:"auto" }}>
         <Navbar setShowSideBar={setShowSideBar} showSideBar={showSideBar} />
         <Routes>
           <Route path="/" element={<SupervisorDashboard />} />  
