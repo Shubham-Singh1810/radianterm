@@ -4,9 +4,9 @@ import { useGlobalState } from "../GlobalProvider";
 import { useNavigate, useParams } from "react-router-dom";
 function ViewEmployeeById() {
   const navigate = useNavigate();
-  const params = useParams()
+  const params = useParams();
   const { globalState } = useGlobalState();
-  const [userDetails, setUserDetails]=useState("")
+  const [userDetails, setUserDetails]=useState("");
   const renderRole = (role) => {
     if (role == "1") {
       return "Super Admin";
@@ -27,7 +27,7 @@ function ViewEmployeeById() {
   };
   useEffect(()=>{
     employeByIdFunc()
-  },[])
+  },[]);
   return (
     <div className=" row m-0 p-0 mt-5 pt-md-5">
       <div className="col-md-4 col-12">

@@ -85,8 +85,9 @@ function EmployeeReport() {
             })}
           </select>
         </div>
-        <div className="col-5">
-          <select className="form-control">
+        <div className="col-4">
+          <div className="border rounded">
+          <select  style={{border:"none",padding:"6.5px", width:"50%", outline:"none"}}>
             <option>Select Month</option>
             <option value="01">January</option>
             <option value="02">Feb</option>
@@ -101,9 +102,7 @@ function EmployeeReport() {
             <option value="11">November</option>
             <option value="12">December</option>
           </select>
-        </div>
-        <div className="col-2">
-          <select className="form-control">
+          <select style={{border:"none",padding:"6.5px", width:"50%", outline:"none"}}>
             <option>Select Year</option>
             <option value="2024">2024</option>
             <option value="2025">2025</option>
@@ -111,6 +110,11 @@ function EmployeeReport() {
             <option value="2027">2027</option>
             <option value="2028">2028</option>
           </select>
+          </div>
+          
+        </div>
+        <div className="col-3">
+          <input className="form-control" type="date"/>
         </div>
       </div>
       {/* download area start */}

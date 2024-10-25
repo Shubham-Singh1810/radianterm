@@ -23,6 +23,7 @@ import PartiallyCompletedProject from "../pages/PartiallyCompletedProject";
 import EmployeeReport from "../pages/EmployeeReport";
 import ViewEmployeeById from "../pages/ViewEmployeeById";
 import EditProject from "../pages/EditProject";
+import EditEmployeeById from "../pages/EditEmployeeById";
 function SuperAdminLayout() {
   const [navItem, setNavItem] = useState([
     {
@@ -180,17 +181,12 @@ function SuperAdminLayout() {
           <Route path="/employee-report/:id" element={<EmployeeReport />} />
           <Route path="/employee-report" element={<EmployeeReport />} />
           <Route path="/employee/:id" element={<ViewEmployeeById />} />
+          <Route path="/employee-edit/:id" element={<EditEmployeeById />} />
         </Routes>
       </div>
     </div>
   );
-  return (
-    <Routes>
-      <Route path="/" element={<SuperDashboard />} />
-      <Route path="/add-employee" element={<AddEmployee />} />
-      <Route path="/my-profile" element={<MyProfile />} />
-    </Routes>
-  );
+  
 }
 
 export default SuperAdminLayout;

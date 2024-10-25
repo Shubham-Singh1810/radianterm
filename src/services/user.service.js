@@ -74,6 +74,16 @@ export const editProfile = async (formData) => {
     throw error;
   }
 };
+export const editEmployeeByAdmin = async (id, formData) => {
+  try {
+    const response = await axios.post(BASE_URL+"update-employees/"+id, formData, getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
 export const changePassword = async (formData) => {
   try {
     const response = await axios.post(BASE_URL+"update-password", formData, config);

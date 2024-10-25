@@ -48,9 +48,13 @@ function ViewTask() {
       return (
         <span className="bg-primary text-light px-1 rounded">In Progress</span>
       );
-    } else if (status == 2) {
+    } else if (status == 3) {
       return (
         <span className=" bg-success text-light px-1 rounded">Completed</span>
+      );
+    }else if (status == 2){
+      return (
+        <span className=" bg-warning text-dark px-1 rounded">On Hold</span>
       );
     }
   };
@@ -296,7 +300,8 @@ function ViewTask() {
                     <option>Select Status</option>
                     <option value={0}>No Progress</option>
                     <option value={1}>In Progress</option>
-                    <option value={2}>Completed</option>
+                    <option value={2}>On Hold</option>
+                    <option value={3}>Completed</option>
                   </select>
                 </div>
                 <div className="modal-footer">

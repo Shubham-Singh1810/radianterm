@@ -113,6 +113,7 @@ function UserTable({ role }) {
                 <td className="pt-4">{v?.designation} </td>
                 <td className="pt-4">
                   <div className="d-flex justify-content-end mx-1">
+                    <i onClick={()=>navigate("/employee-edit/"+v?.id)} className="fa fa-edit mx-1"></i>
                     <i onClick={()=>navigate("/employee/"+v?.id)} className="fa fa-eye mx-1"></i>
                     <i className="fa fa-tasks mx-1"></i>
                     <i
