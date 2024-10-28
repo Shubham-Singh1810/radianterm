@@ -28,6 +28,7 @@ import moment from "moment";
 import { applyLeaveApplication } from "../services/user.service";
 import SupervisorDashboard from "../pages/SupervisorDashboard";
 import ViewLeaveApplicationList from "../pages/ViewLeaveApplicationList";
+import EditProject from "../pages/EditProject";
 function SupervisorLayout() {
   const { globalState } = useGlobalState();
   const [applicationForm, setApplicationForm] = useState(false);
@@ -134,6 +135,7 @@ function SupervisorLayout() {
             element={<ViewLeaveApplicationList />}
           />
           <Route path="/view-members" element={<ViewTeamMembers />} />
+          <Route path="/edit-project/:id" element={<EditProject/>} />
         </Routes>
       </div>
       {applicationForm && (

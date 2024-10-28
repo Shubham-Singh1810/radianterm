@@ -95,7 +95,7 @@ function ProjectTable({ status }) {
                       </a>
                     )}
                     {(globalState?.user.role == "1" ||
-                      globalState?.user.role == "2") && (
+                      globalState?.user.role == "2" || ( globalState?.user.role == "4" && globalState?.user.isTL )) && (
                       <i
                         className="fa fa-edit mx-2"
                         onClick={() => navigate("/edit-project/" + v?.id)}

@@ -75,7 +75,7 @@ function Login() {
             alt="Logo"
           />
           <h5 className="text-center mt-3 mb-4">Reset Password</h5>
-          <form onSubmit={formik.handleSubmit}>
+          
             <div>
               <label>Email</label>
               <input
@@ -94,7 +94,7 @@ function Login() {
             >
               Submit
             </button>
-          </form>
+         
           <div className="d-flex justify-content-center my-2">
             <p>
               <b

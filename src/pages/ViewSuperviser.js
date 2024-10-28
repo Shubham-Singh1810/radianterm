@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getEmployee, addEmpRating, addTeamLeader, getTeamLeaders , removeTeamLeader} from "../services/user.service";
+import {
+  getEmployee,
+  addEmpRating,
+  addTeamLeader,
+  getTeamLeaders,
+  removeTeamLeader,
+} from "../services/user.service";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { getProjectList } from "../services/project.service";
@@ -11,10 +17,10 @@ function ViewSuperviser() {
   const [showRatingPop, setShowRatingPop] = useState(false);
   const [ratingUser, setRatingUser] = useState();
   const [showPopUpForm, setShowPopUpForm] = useState(false);
+  const [showTeamTablePopup, setShowTeamTablePopup] = useState(false);
   const getTeamLeaderListFunc = async () => {
     try {
       let response = await getTeamLeaders();
-      console.log(response.data.teamLeaders[0].user.name)
       setUserList(response.data.teamLeaders);
       setUserFilteredList(response.data.teamLeaders); // Initial set
     } catch (error) {
@@ -23,10 +29,8 @@ function ViewSuperviser() {
   };
   const getEmployeeListFunc = async () => {
     try {
-      let response = await getEmployee({role: 4});
-      
+      let response = await getEmployee({ role: 4 });
       setEmployeeList(response?.data?.employees);
-      setUserFilteredList(response?.data?.employees)
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +47,7 @@ function ViewSuperviser() {
   useEffect(() => {
     getTeamLeaderListFunc();
     getProjectListFunc();
-    getEmployeeListFunc()
+    getEmployeeListFunc();
   }, []);
 
   const [formData, setFormData] = useState({
@@ -91,37 +95,44 @@ function ViewSuperviser() {
       setUserFilteredList(userList);
     }
   };
-  const [teamLeaderFormData, setTeamLeaderFormData]=useState({
-    user_id:"",
-    project_id:""
-  })
-  const handleTeamLeaderAssignFunc =async ()=>{
+  const [teamLeaderFormData, setTeamLeaderFormData] = useState({
+    user_id: "",
+    project_id: "",
+  });
+  const handleTeamLeaderAssignFunc = async () => {
     try {
-      let response = await addTeamLeader(teamLeaderFormData)
-      if(response?.data.message=="Team leader assigned successfully"){
+      let response = await addTeamLeader(teamLeaderFormData);
+      if (response?.data.message == "Team leader assigned successfully") {
         toast.success("Team leader assigned successfully");
         setShowPopUpForm(false);
         getTeamLeaderListFunc();
-      }else if(response?.data.message=="This team leader is already assigned to the project"){
+      } else if (
+        response?.data.message ==
+        "This team leader is already assigned to the project"
+      ) {
         toast.info("This team leader is already assigned to the project");
-        setShowPopUpForm(false)
-      }
-      else{
+        setShowPopUpForm(false);
+      } else {
         toast.success("Something went wrong");
       }
     } catch (error) {
       toast.error("Internal Server Error");
     }
-  }
+  };
   const handleTeamLeaderRemoveFunc = async (user_id, project_id) => {
-    const isConfirmed = window.confirm("Are you sure you want to remove the team leader from the project?");
-    
+    const isConfirmed = window.confirm(
+      "Are you sure you want to remove the team leader from the project?"
+    );
+
     if (!isConfirmed) return; // Exit if the user cancels the confirmation
-  
+
     try {
       const response = await removeTeamLeader({ user_id, project_id });
-  
-      if (response?.data.message === "Team leader removed successfully from the project") {
+
+      if (
+        response?.data.message ===
+        "Team leader removed successfully from the project"
+      ) {
         toast.success("Team leader removed successfully from the project");
         setShowPopUpForm(false);
         getTeamLeaderListFunc();
@@ -132,7 +143,7 @@ function ViewSuperviser() {
       toast.error("Internal Server Error");
     }
   };
-  
+  const [teamArr, setTeamArr]=useState([])
   return (
     <>
       <div
@@ -141,36 +152,35 @@ function ViewSuperviser() {
       >
         <div className="d-flex row align-items-center  m-4 ">
           <div className="col-4">
-          <div className="d-flex align-items-center  border rounded p-2">
-            <i className="fa fa-search text-secondary me-3"></i>{" "}
-            <input
-              onChange={(e) => handleUserFilter(e.target.value)}
-              className=""
-              style={{ border: "none", outline: "none" }}
-              placeholder="Search Team Leader"
-            />
-          </div>
-          </div>
-          <div className="col-4">
-          <div className="d-flex align-items-center  border rounded p-2">
-            <i className="fa fa-search text-secondary me-3"></i>{" "}
-            <input
-              onChange={(e) => handleProjectFilter(e.target.value)}
-              className=""
-              style={{ border: "none", outline: "none" }}
-              placeholder="Search Project"
-            />
-          </div>
+            <div className="d-flex align-items-center  border rounded p-2">
+              <i className="fa fa-search text-secondary me-3"></i>{" "}
+              <input
+                onChange={(e) => handleUserFilter(e.target.value)}
+                className=""
+                style={{ border: "none", outline: "none" }}
+                placeholder="Search Team Leader"
+              />
+            </div>
           </div>
           <div className="col-4">
-          <button
-            onClick={() => setShowPopUpForm(true)}
-            className="btn btn-primary  ms-3"
-          >
-            Assign Team Leader <i className="ms-2 fa fa-plus"></i>
-          </button>
+            <div className="d-flex align-items-center  border rounded p-2">
+              <i className="fa fa-search text-secondary me-3"></i>{" "}
+              <input
+                onChange={(e) => handleProjectFilter(e.target.value)}
+                className=""
+                style={{ border: "none", outline: "none" }}
+                placeholder="Search Project"
+              />
+            </div>
           </div>
-          
+          <div className="col-4">
+            <button
+              onClick={() => setShowPopUpForm(true)}
+              className="btn btn-primary  ms-3"
+            >
+              Assign Team Leader <i className="ms-2 fa fa-plus"></i>
+            </button>
+          </div>
         </div>
 
         <table class="table table-striped ">
@@ -182,7 +192,6 @@ function ViewSuperviser() {
               <th scope="col">Contact No.</th>
               <th scope="col">Designation</th>
               <th scope="col">Action</th>
-              
             </tr>
           </thead>
           <tbody>
@@ -210,14 +219,38 @@ function ViewSuperviser() {
                       </div>
                     </div>
                   </td>
-                   <td className="pt-4">{v?.project?.name}</td>
+                  <td className="pt-4">{v?.project?.name}</td>
                   <td className="pt-4">{v?.user?.contact}</td>
                   <td className="pt-4">{v?.user?.designation} </td>
-                  <td className="pt-4">
-                    <i className="fa fa-users text-primary mx-1"></i>
-                    <i className="fa fa-trash text-danger mx-1" onClick={()=>handleTeamLeaderRemoveFunc(v?.user_id, v?.project_id)}></i>
-                     </td>
-                  
+                  <td className="pt-4 ">
+                      <i
+                        className="fa fa-users text-primary mx-1"
+                        onClick={() =>{setTeamArr(v.teamMembers); setShowTeamTablePopup(true)} }
+                      ></i>
+                      <span
+                        style={{
+                          fontSize: "11px", 
+                          fontWeight: "800",
+                          position: "relative",
+                          left: "-10px",
+                          top:"10px",
+                          background: "white",
+                          borderRadius: "12px",
+                          textAlign:"center",
+                          color:"green"
+                        }}
+                      >
+                        {v?.teamMembers.length}
+                      </span>
+                    
+
+                    <i
+                      className="fa fa-trash text-danger mx-1"
+                      onClick={() =>
+                        handleTeamLeaderRemoveFunc(v?.user_id, v?.project_id)
+                      }
+                    ></i>
+                  </td>
                 </tr>
               );
             })}
@@ -316,14 +349,30 @@ function ViewSuperviser() {
                 <div className="modal-body row ">
                   <div className="px-2">
                     <label className="mt-0 mb-2">Employee</label>
-                    <select className="form-control" onChange={(e)=>setTeamLeaderFormData({...teamLeaderFormData, user_id:e.target.value})}>
+                    <select
+                      className="form-control"
+                      onChange={(e) =>
+                        setTeamLeaderFormData({
+                          ...teamLeaderFormData,
+                          user_id: e.target.value,
+                        })
+                      }
+                    >
                       <option value="">Select</option>
                       {employeeList?.map((v, i) => {
                         return <option value={v?.id}>{v?.name}</option>;
                       })}
                     </select>
                     <label className="mt-0 mb-2 mt-3">Project</label>
-                    <select className="form-control" onChange={(e)=>setTeamLeaderFormData({...teamLeaderFormData, project_id:e.target.value})}>
+                    <select
+                      className="form-control"
+                      onChange={(e) =>
+                        setTeamLeaderFormData({
+                          ...teamLeaderFormData,
+                          project_id: e.target.value,
+                        })
+                      }
+                    >
                       <option value="">Select</option>
                       {projectList?.map((v, i) => {
                         return <option value={v?.id}>{v?.name}</option>;
@@ -332,10 +381,99 @@ function ViewSuperviser() {
 
                     <br />
 
-                    <button className={((teamLeaderFormData.project_id && teamLeaderFormData.user_id) ? "" : " disabled" ) + " mt-3 btn btn-primary w-100"} onClick={handleTeamLeaderAssignFunc}>
+                    <button
+                      className={
+                        (teamLeaderFormData.project_id &&
+                        teamLeaderFormData.user_id
+                          ? ""
+                          : " disabled") + " mt-3 btn btn-primary w-100"
+                      }
+                      onClick={handleTeamLeaderAssignFunc}
+                    >
                       Submit
                     </button>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {showPopUpForm && <div className="modal-backdrop fade show"></div>}
+        </>
+      )}
+      {showTeamTablePopup && (
+        <>
+          <div className="modal show d-block" tabIndex="-1">
+            <div className="modal-dialog modal-fullscreen">
+              <div className="modal-content ">
+                <div className="modal-header d-flex justify-content-between">
+                  <h5 className="modal-title">View Team</h5>
+                  <button
+                    type="button"
+                    className="btn "
+                    onClick={() => setShowTeamTablePopup(false)}
+                  >
+                    <i className="fa fa-close"></i>
+                  </button>
+                </div>
+
+                <div className="modal-body row ">
+                  <table class="table table-striped ">
+                    <thead>
+                      <tr className="">
+                        <th scope="col">S.no</th>
+                        <th scope="col">Profile</th>
+                        <th scope="col">Contact No.</th>
+                        <th scope="col">Designation</th>
+                        <th scope="col">
+                          <div className="d-flex justify-content-end">
+                            <div>Action</div>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {teamArr?.map((v, i) => {
+                        return (
+                          <tr>
+                            <th scope="row" className="pt-4">
+                              {i + 1}.
+                            </th>
+                            <td>
+                              <div className="d-flex">
+                                <div className="provileAvtar">
+                                  <img
+                                    src={
+                                      "https://ermbackend.radiantengineering.co/storage/app/public/" +
+                                      v?.employee?.photo
+                                    }
+                                  />
+                                </div>
+                                <div className="ms-2 my-auto">
+                                  <h6 className="mb-0">{v?.employee?.name}</h6>
+                                  <p className="text-secondary mb-0 fontMono">
+                                    {v?.employee?.email}
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="pt-4">{v?.employee?.contact}</td>
+                            <td className="pt-4">{v?.employee?.designation} </td>
+                            <td className="pt-4">
+                              <div className="d-flex justify-content-end mx-1">
+                               
+                                <i
+                                  onClick={() => navigate("/employee/" + v?.employee?.id)}
+                                  className="fa fa-eye mx-1"
+                                ></i>
+                                <i className="fa fa-tasks mx-1" onClick={()=>alert("Work in progress")}></i>
+                                
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

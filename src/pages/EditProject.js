@@ -14,10 +14,10 @@ const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
   client: Yup.string().required("Required"),
   location: Yup.string().required("Required"),
-  startDate: Yup.date(),
+
   status: Yup.string().required("Required"),
   projectType: Yup.string().required("Required"),
-  projectDescription: Yup.string(),
+  
 });
 
 const EditProject = () => {

@@ -24,6 +24,7 @@ import FutureProject from "../pages/FutureProject";
 import CurrentProject from "../pages/CurrentProject";
 import CompletedProject from "../pages/CompletedProject";
 import PartiallyCompletedProject from "../pages/PartiallyCompletedProject";
+import EditProject from "../pages/EditProject";
 function EmployeeLayout() {
   const { globalState } = useGlobalState();
   const [applicationForm, setApplicationForm] = useState(false);
@@ -33,7 +34,6 @@ function EmployeeLayout() {
     {
       heading: "Projects",
       item: [
-        
         {
           name: "Current Project",
           path: "/current-projects",
@@ -123,8 +123,21 @@ function EmployeeLayout() {
   );
   return (
     <div className="d-flex">
-      {showSideBar && <Sidebar setShowSideBar={setShowSideBar} showSideBar={showSideBar} navItem={navItem} setNavItem={setNavItem} />}
-      <div style={{ width: showSideBar && window.innerWidth> 500 ? "80%" : "100%", height:"100vh", overflow:"auto" }}>
+      {showSideBar && (
+        <Sidebar
+          setShowSideBar={setShowSideBar}
+          showSideBar={showSideBar}
+          navItem={navItem}
+          setNavItem={setNavItem}
+        />
+      )}
+      <div
+        style={{
+          width: showSideBar && window.innerWidth > 500 ? "80%" : "100%",
+          height: "100vh",
+          overflow: "auto",
+        }}
+      >
         <Navbar setShowSideBar={setShowSideBar} showSideBar={showSideBar} />
         <Routes>
           <Route path="/" element={<EmployeeDashboard />} />
@@ -144,7 +157,11 @@ function EmployeeLayout() {
           <Route path="/current-projects" element={<CurrentProject />} />
           <Route path="/future-projects" element={<FutureProject />} />
           <Route path="/completed-projects" element={<CompletedProject />} />
-          <Route path="/partially-completed-projects" element={<PartiallyCompletedProject />} />
+          <Route
+            path="/partially-completed-projects"
+            element={<PartiallyCompletedProject />}
+          />
+          <Route path="/edit-project/:id" element={<EditProject />} />
         </Routes>
       </div>
       {applicationForm && (
