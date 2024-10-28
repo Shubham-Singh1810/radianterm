@@ -114,25 +114,7 @@ function EmployeeDashboard() {
   };
   const [checkOut, setCheckOut] = useState(false);
   const [showMore, setShowMore]=useState(false)
-  const handleDeleteMessage = async(id)=>{
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this message?"
-    );
   
-    if (!isConfirmed) return;
-    try {
-      let response = await deleteMessage(id)
-      if(response.data.message=="Message deleted successfully!"){
-        toast.success("Message deleted successfully!")
-        handleGetMessage()
-      }else{
-        toast.error("Something went wrong")
-      }
-    } catch (error) {
-      toast.error("Internal Server Error")
-    }
-
-  }
   return (
     <div className="">
       <div className="row mx-0 my-3 p-0 ">

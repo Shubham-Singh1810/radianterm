@@ -15,7 +15,7 @@ const EditProfile = () => {
     passbook,
     aadhar,
     offerLetter,
-    
+    password,
     ...initialValues
   } = globalState.user;
   const validationSchema = Yup.object({
@@ -34,29 +34,28 @@ const EditProfile = () => {
   });
 
   const handleSubmit = async (values) => {
-    if(values.password){
-      try {
-        let response = await editProfile(values);
-        if (response?.data?.message == "Profile updated successfully!") {
-          toast.success(response?.data?.message);
-          setTimeout(() => {
-            localStorage.setItem(
-              "radient_user",
-              JSON.stringify(response?.data?.user)
-            );
-            setGlobalState({
-              ...globalState,
-              user: response.data.user,
-              access_token: response.data.access_token,
-            });
-            navigate("/");
-          }, 1500);
-        }
-      } catch (error) {}
-    }else{
-      toast.error("Password is required field");
+    try {
+      let response = await editProfile(values);
+      if (response?.data?.message == "Profile updated successfully!") {
+        toast.success(response?.data?.message);
+        setTimeout(() => {
+          localStorage.setItem(
+            "radient_user",
+            JSON.stringify(response?.data?.user)
+          );
+          setGlobalState({
+            ...globalState,
+            user: response.data.user,
+            access_token: response.data.access_token,
+          });
+          navigate("/");
+        }, 1500);
+      }else{
+        toast.error("Something went wrong");
+      }
+    } catch (error) {
+      toast.error("Internal Server Error");
     }
-    
   };
 
   return (
@@ -69,7 +68,7 @@ const EditProfile = () => {
         validateOnBlur={true}
         validateOnChange={true}
       >
-        {({ setFieldValue }) => (
+        {({ setFieldValue, values }) => (
           <Form>
             <div className="row m-0 p-0">
               <div className="form-group col-md-6 col-12">
@@ -100,20 +99,20 @@ const EditProfile = () => {
                 />
               </div>
               <div className="form-group col-md-6 col-12">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Password*</label>
                 <Field
                   name="password"
                   type="password"
-                  className="form-control"
+                  className="form-control "
                 />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className="text-danger"
-                />
+                {(!values.password || values.password.length < 8) && (
+                  <p className="text-danger mb-0">
+                    Password must be at least 8 characters
+                  </p>
+                )}
               </div>
               <div className="form-group col-md-6 col-12">
-                <label htmlFor="address">Address</label>
+                <label htmlFor="address">Address*</label>
                 <Field name="address" type="text" className="form-control" />
                 <ErrorMessage
                   name="address"
@@ -122,7 +121,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="form-group col-md-6 col-12">
-                <label htmlFor="designation">Designation</label>
+                <label htmlFor="designation">Designation*</label>
                 <Field
                   name="designation"
                   type="text"
@@ -136,7 +135,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="form-group col-md-6 col-12">
-                <label htmlFor="officeLocation">Office Location</label>
+                <label htmlFor="officeLocation">Office Location*</label>
                 <Field
                   name="officeLocation"
                   type="text"
@@ -149,7 +148,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="form-group col-md-6 col-12">
-                <label htmlFor="department">Department</label>
+                <label htmlFor="department">Department*</label>
                 <Field name="department" type="text" className="form-control" />
                 <ErrorMessage
                   name="department"
@@ -158,7 +157,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="form-group col-md-6 col-12">
-                <label htmlFor="education">Highest Education</label>
+                <label htmlFor="education">Highest Education*</label>
                 <Field name="education" type="text" className="form-control" />
                 <ErrorMessage
                   name="education"
@@ -185,7 +184,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="form-group col-md-6 col-12">
-                <label htmlFor="joiningDate">Joining Date</label>
+                <label htmlFor="joiningDate">Joining Date*</label>
                 <Field
                   name="joiningDate"
                   type="date"
@@ -198,7 +197,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="form-group col-md-6 col-12">
-                <label htmlFor="dob">Date of Birth</label>
+                <label htmlFor="dob">Date of Birth*</label>
                 <Field name="dob" type="date" className="form-control" />
                 <ErrorMessage
                   name="dob"

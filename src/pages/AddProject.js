@@ -24,11 +24,11 @@ const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
   client: Yup.string().required("Required"),
   location: Yup.string().required("Required"),
-  startDate: Yup.date().required("Required"),
+  startDate: Yup.date(),
   endDate: Yup.date(),
   status: Yup.string().required("Required"),
   projectType: Yup.string().required("Required"),
-  projectDescription: Yup.string().required("Required"),
+  projectDescription: Yup.string(),
   projectCost: Yup.number(),
   developmentArea: Yup.string(),
   projectNature: Yup.string(),
@@ -242,17 +242,29 @@ const AddProject = () => {
                       className="form-control"
                     >
                       <option value="">Select</option>
-                      <option value="Architectural & Town Planning">
-                        Architectural & Town Planning
+                      <option value="Architecture">
+                        Architecture
                       </option>
-                      <option value="PHE Projects">PHE Projects</option>
+                      <option value="Townplanning">
+                      Townplanning
+                      </option>
+                      <option value="Dam">
+                      Dam
+                      </option>
+                      <option value="Drainage">
+                      Drainage
+                      </option>
+                      <option value="Sewerage">
+                      Sewerage
+                      </option>
+                      <option value="PHE">PHE</option>
                       <option value="Transportation">Transportation</option>
                       <option value="Interior Design">Interior Design</option>
                       <option value="Landscape Design">Landscape Design</option>
                       <option value="Offshore Structures">
                         Offshore Structures
                       </option>
-                      <option value="PMC & Execution">PMC & Execution</option>
+                      <option value="Execution">Execution</option>
                       <option value="Survey">Survey</option>
                     </Field>
                     <ErrorMessage
@@ -272,9 +284,11 @@ const AddProject = () => {
                       <option value="DPR/Consultancy">
                         DPR/Consultancy
                       </option>
-                      <option value="PMC/PMU/IEC/SQC">PMC/PMU/IEC/SQC</option>
-                      <option value="PDMC">PDMC</option>
+                      
+                      <option value="Supervision/PMC/IEC/SQC/IEC-HRD/ISA/DPMU">Supervision/PMC/IEC/SQC/IEC-HRD/ISA/DPMU</option>
+                      <option value="EPC">EPC</option>
                       <option value="Turnkey">Turnkey</option>
+                      <option value="Advisory">Advisory</option>
                       
                     </Field>
                     <ErrorMessage

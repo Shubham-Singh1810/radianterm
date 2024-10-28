@@ -12,7 +12,7 @@ function Navbar({ setShowSideBar, showSideBar }) {
     } else if (role == "3") {
       return "Supervisor";
     } else {
-      return "Emplyee";
+      return "Employee";
     }
   };
   const handleLogout = () => {

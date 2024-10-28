@@ -281,6 +281,16 @@ export const addTeamLeader = async (formData) => {
     throw error;
   }
 };
+export const removeTeamLeader = async (formData) => {
+  try {
+    const response = await axios.post(BASE_URL+"remove-tl-from-project", formData,   getConfig());
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
 export const getTeamLeaders = async () => {
   try {
     const response = await axios.get(BASE_URL+"list-tl",   getConfig());

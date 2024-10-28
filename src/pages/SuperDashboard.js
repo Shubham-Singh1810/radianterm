@@ -8,10 +8,17 @@ import {
   sendNotification,
   sendMessage,
   getMessage,
-  deleteMessage
+  deleteMessage,
+  markUserAttendence,
+  getStatics,
 } from "../services/user.service";
+
 import { ToastContainer, toast } from "react-toastify";
+import moment from "moment";
+import { useGlobalState } from "../GlobalProvider";
 function SuperDashboard() {
+  const { globalState } = useGlobalState();
+  const [checkOut, setCheckOut] = useState(false);
   const statics = [
     {
       name: "Projects",
@@ -69,7 +76,7 @@ function SuperDashboard() {
           response?.data?.message == "Message sent to all users successfully!"
         ) {
           toast.success("Message sent to all users successfully!");
-          handleGetMessage()
+          handleGetMessage();
           setShowNotificationForm(false);
         } else {
           toast.success("Something went wrong");
@@ -91,26 +98,75 @@ function SuperDashboard() {
       }
     }
   };
-  const [showMore, setShowMore]=useState(false)
-  const handleDeleteMessage = async(id)=>{
+  const [showMore, setShowMore] = useState(false);
+  const handleDeleteMessage = async (id) => {
     const isConfirmed = window.confirm(
       "Are you sure you want to delete this message?"
     );
-  
+
     if (!isConfirmed) return;
     try {
-      let response = await deleteMessage(id)
-      if(response.data.message=="Message deleted successfully!"){
-        toast.success("Message deleted successfully!")
-        handleGetMessage()
-      }else{
-        toast.error("Something went wrong")
+      let response = await deleteMessage(id);
+      if (response.data.message == "Message deleted successfully!") {
+        toast.success("Message deleted successfully!");
+        handleGetMessage();
+      } else {
+        toast.error("Something went wrong");
       }
     } catch (error) {
-      toast.error("Internal Server Error")
+      toast.error("Internal Server Error");
     }
+  };
+  const [staticsData, setStaticsData] = useState();
+  const [status, setStatus] = useState();
+  const [currentTime, setCurrentTime] = useState(
+    moment().format("DD MMM YYYY HH:mm:ss")
+  );
+  const handleInTime = async () => {
+    let formData = {
+      userId: globalState.user.id,
+      in_time: moment().format("HH:mm"),
+      date: moment().format("YYYY-MM-DD"),
+      status: status,
+    };
+    try {
+      let response = await markUserAttendence(formData);
+      if (response.data.message == "In time recorded successfully") {
+        toast.success(response?.data?.message);
+      } else {
+        toast.success(response?.data?.message);
+      }
+      getStaticsReport();
+    } catch (error) {}
+  };
+  const handleCheckboxChange = (newStatus) => {
+    setStatus(newStatus);
+  };
+  const handleOutTime = async () => {
+    let formData = {
+      userId: globalState.user.id,
+      out_time: moment().format("HH:mm"),
+      date: moment().format("YYYY-MM-DD"),
+      // status: status,
+    };
+    try {
+      let response = await markUserAttendence(formData);
+      if (response.data.message == "In time recorded successfully") {
+        toast.success(response?.data?.message);
+      } else {
+        toast.success(response?.data?.message);
+      }
+      getStaticsReport();
+    } catch (error) {}
+  };
+  const getStaticsReport = async () => {
+    try {
+      let response = await getStatics();
+      console.log(response?.data);
+      setStaticsData(response?.data);
+    } catch (error) {}
+  };
 
-  }
   return (
     <div className="">
       <div className="row mx-0 my-3 p-0 ">
@@ -134,7 +190,96 @@ function SuperDashboard() {
         })}
       </div>
       <div className="row mx-0 my-3 p-0">
-        <div className="col-md-6 col-12">
+        {globalState?.user?.role == "2" && <>
+          {!staticsData?.attendanceInReport ? (
+            <div className="col-md-6 col-12 my-2">
+              <div
+                className="border p-3 rounded shadow-sm text-light"
+                style={{ background: "orangered" }}
+              >
+                <p>Mark Today's Attendence</p>
+                <h5 className="mb-3">{currentTime}</h5>
+                <div className="d-flex justify-content-between bg-light text-dark p-2 rounded">
+                  <div>
+                    <input
+                      type="checkbox"
+                      checked={status === "Present"}
+                      onChange={() => handleCheckboxChange("Present")}
+                    />
+                    <span className="ms-2">Present</span>
+                  </div>
+                  <div>
+                    <input
+                      type="checkbox"
+                      checked={status === "Absent"}
+                      onChange={() => handleCheckboxChange("Absent")}
+                    />
+                    <span className="ms-2">Absent</span>
+                  </div>
+                  <div>
+                    <input
+                      type="checkbox"
+                      checked={status === "Holiday"}
+                      onChange={() => handleCheckboxChange("Holiday")}
+                    />
+                    <span className="ms-2">Holiday</span>
+                  </div>
+                </div>
+                <button
+                  className={
+                    "btn btn-success w-100 mt-3 " + (!status && " disabled")
+                  }
+                  onClick={handleInTime}
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="col-md-6 col-12 my-2">
+              <div
+                className="border p-3 rounded shadow-sm bg-success text-light"
+                style={{ background: "green" }}
+              >
+                <p>Mark Out Time</p>
+                {!staticsData?.out_time ? (
+                  <h5 className="mb-3">
+                    You have started your day at {staticsData.in_time}
+                  </h5>
+                ) : (
+                  <h5 className="mb-3">
+                    {" "}
+                    You have closed your day at {staticsData?.out_time}
+                  </h5>
+                )}
+
+                <div className="d-flex justify-content-between p-2 rounded">
+                  <div>
+                    <input
+                      type="checkbox"
+                      checked={checkOut}
+                      onChange={() => setCheckOut(!checkOut)}
+                    />
+                    <span className="ms-2">Are you closing your day</span>
+                  </div>
+                </div>
+                <button
+                  className={
+                    "btn btn-warning w-100 mt-3" +
+                    (!checkOut ? " disabled" : "")
+                  }
+                  onClick={handleOutTime}
+                  disabled={!checkOut} // This disables the button when checkOut is false
+                >
+                  Submit
+                </button>
+              </div>
+              <div className="border mt-2 rounded p-3"></div>
+            </div>
+          )}
+        </>}
+        
+        <div className="col-md-6 col-12 my-2">
           {/* <ProjectReport/> */}
           <div className="border p-3">
             <div>
@@ -194,76 +339,90 @@ function SuperDashboard() {
                     </div>
                   ) : (
                     <div className="list-group">
-                      {showMore? messageList?.map((v, i) => {
-                        return (
-                          <a
-                            href="#"
-                            className="list-group-item list-group-item-action"
-                          >
-                            <div className="d-flex justify-content-end">
-                            <i className="fa fa-close text-danger border rounded px-1" onClick={()=>handleDeleteMessage(v?.id)} style={{marginBottom:"-20px"}}></i>
-                            </div>
-                            
-                            <div className="d-flex align-items-center">
-                              <img
-                                style={{
-                                  height: "40px",
-                                  width: "40px",
-                                  borderRadius: "50%",
-                                }}
-                                src={
-                                  "https://ermbackend.radiantengineering.co/storage/app/public/" +
-                                  v?.user?.photo
-                                }
-                              />
-                              <div className="ms-3">
-                              <h6 className="mb-0">{v?.user?.name}</h6>
-                              <p className="mb-0">{v?.user?.email}</p>
-                              </div>
-                              
-                            </div>
-                            <p className="mb-1 mt-3">{v?.message}</p>
-                            <div className="d-flex w-100 justify-content-end">
-                              <small className="">{v?.messageTime}</small>
-                            </div>
-                          </a>
-                        );
-                      }): messageList?.slice(0, 3)?.map((v, i) => {
-                        return (
-                          <a
-                            href="#"
-                            className="list-group-item list-group-item-action"
-                          >
-                            <div className="d-flex justify-content-end">
-                            <i className="fa fa-close text-danger border rounded px-1" onClick={()=>handleDeleteMessage(v?.id)} style={{marginBottom:"-20px"}}></i>
-                            </div>
-                            <div className="d-flex align-items-center">
-                              <img
-                                style={{
-                                  height: "40px",
-                                  width: "40px",
-                                  borderRadius: "50%",
-                                }}
-                                src={
-                                  "https://ermbackend.radiantengineering.co/storage/app/public/" +
-                                  v?.user?.photo
-                                }
-                              />
-                              <div className="ms-3">
-                              <h6 className="mb-0">{v?.user?.name}</h6>
-                              <p className="mb-0">{v?.user?.email}</p>
-                              </div>
-                              
-                            </div>
-                            <p className="mb-1 mt-3">{v?.message}</p>
-                            <div className="d-flex w-100 justify-content-end">
-                              <small className="">{v?.messageTime}</small>
-                            </div>
-                          </a>
-                        );
-                      })}
+                      {showMore
+                        ? messageList?.map((v, i) => {
+                            return (
+                              <a
+                                href="#"
+                                className="list-group-item list-group-item-action"
+                              >
+                                <div className="d-flex justify-content-end">
+                                  <i
+                                    className="fa fa-close text-danger border rounded px-1"
+                                    onClick={() => handleDeleteMessage(v?.id)}
+                                    style={{ marginBottom: "-20px" }}
+                                  ></i>
+                                </div>
+
+                                <div className="d-flex align-items-center">
+                                  <img
+                                    style={{
+                                      height: "40px",
+                                      width: "40px",
+                                      borderRadius: "50%",
+                                    }}
+                                    src={
+                                      "https://ermbackend.radiantengineering.co/storage/app/public/" +
+                                      v?.user?.photo
+                                    }
+                                  />
+                                  <div className="ms-3">
+                                    <h6 className="mb-0">{v?.user?.name}</h6>
+                                    <p className="mb-0">{v?.user?.email}</p>
+                                  </div>
+                                </div>
+                                <p className="mb-1 mt-3">{v?.message}</p>
+                                <div className="d-flex w-100 justify-content-end">
+                                  <small className="">{v?.messageTime}</small>
+                                </div>
+                              </a>
+                            );
+                          })
+                        : messageList?.slice(0, 3)?.map((v, i) => {
+                            return (
+                              <a
+                                href="#"
+                                className="list-group-item list-group-item-action"
+                              >
+                                <div className="d-flex justify-content-end">
+                                  <i
+                                    className="fa fa-close text-danger border rounded px-1"
+                                    onClick={() => handleDeleteMessage(v?.id)}
+                                    style={{ marginBottom: "-20px" }}
+                                  ></i>
+                                </div>
+                                <div className="d-flex align-items-center">
+                                  <img
+                                    style={{
+                                      height: "40px",
+                                      width: "40px",
+                                      borderRadius: "50%",
+                                    }}
+                                    src={
+                                      "https://ermbackend.radiantengineering.co/storage/app/public/" +
+                                      v?.user?.photo
+                                    }
+                                  />
+                                  <div className="ms-3">
+                                    <h6 className="mb-0">{v?.user?.name}</h6>
+                                    <p className="mb-0">{v?.user?.email}</p>
+                                  </div>
+                                </div>
+                                <p className="mb-1 mt-3">{v?.message}</p>
+                                <div className="d-flex w-100 justify-content-end">
+                                  <small className="">{v?.messageTime}</small>
+                                </div>
+                              </a>
+                            );
+                          })}
                       <div className="d-flex justify-content-end mt-3">
-                      <p className="text-primary" onClick={()=>setShowMore(!showMore)} style={{cursor:"pointer"}}><u>Show {!showMore ? "more" : "less"} </u></p>
+                        <p
+                          className="text-primary"
+                          onClick={() => setShowMore(!showMore)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <u>Show {!showMore ? "more" : "less"} </u>
+                        </p>
                       </div>
                     </div>
                   )}
@@ -272,10 +431,11 @@ function SuperDashboard() {
             </div>
           </div>
         </div>
-        <div className="col-md-6 col-12">
+        <div className="col-md-6 col-12 my-2">
           <AttendenceReport role={1} userList={userList} />
         </div>
       </div>
+
       <ToastContainer />
     </div>
   );

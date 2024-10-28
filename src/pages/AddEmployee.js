@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { addEmployee } from "../services/user.service";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useGlobalState } from "../GlobalProvider";
 function AddEmployee() {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
@@ -11,6 +12,7 @@ function AddEmployee() {
     role: Yup.string().required("Role is required"),
     officialID: Yup.string().required("Official ID is required"),
   });
+  const { setGlobalState, globalState } = useGlobalState();
   return (
     <div className=" row m-0 p-0 mt-md-5 mt-3 pt-md-5">
       <div className="col-md-6 col-12">
@@ -84,8 +86,7 @@ function AddEmployee() {
                           className={`form-control mt-1 mb-3 ${touched.role && errors.role ? "is-invalid" : ""}`}
                         >
                           <option value="">Select a role</option>
-                          <option value="2">Admin</option>
-                         
+                          {globalState?.user?.role=="1" && <option value="2">Admin</option>}
                           <option value="4">Employee</option>
                         </Field>
                         <ErrorMessage name="role" component="div" className="invalid-feedback" />

@@ -61,7 +61,7 @@ function ViewTask() {
 
   const handleUpdateTask = async () => {
     try {
-      let response = await updateTask(updateTaskId, { status: currentStatus });
+      let response = await updateTask(updateTaskId, { status: currentStatus, comment:comment });
       if (response?.data?.message === "Task status updated successfully") {
         setShowUpdatePop(false);
         getTaskListFunc();
@@ -82,6 +82,7 @@ function ViewTask() {
   const [showUpdatePop, setShowUpdatePop] = useState(false);
   const [updateTaskId, setUpdateTaskId] = useState();
   const [currentStatus, setShowCurrentStatus] = useState();
+  const [comment, setComment] = useState("");
   const [showEditPop, setShowEditPop] = useState(false);
   const [editForm, setEditForm] = useState();
 
@@ -238,6 +239,10 @@ function ViewTask() {
                     <span>Task Description : </span>
                     {v?.taskDescription}
                   </p>
+                  <p>
+                    <span>Comment : </span>
+                    {v?.comment}
+                  </p>
 
                   {globalState?.user?.id == v?.empId && (
                     <button
@@ -303,6 +308,7 @@ function ViewTask() {
                     <option value={2}>On Hold</option>
                     <option value={3}>Completed</option>
                   </select>
+                  <textarea className="form-control mt-3" placeholder="Add Comment" onChange={(e)=>setComment(e.target.value)}/>
                 </div>
                 <div className="modal-footer">
                   <button

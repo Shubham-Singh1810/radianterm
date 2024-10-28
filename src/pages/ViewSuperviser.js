@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getEmployee, addEmpRating, addTeamLeader, getTeamLeaders } from "../services/user.service";
+import { getEmployee, addEmpRating, addTeamLeader, getTeamLeaders , removeTeamLeader} from "../services/user.service";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { getProjectList } from "../services/project.service";
@@ -26,7 +26,7 @@ function ViewSuperviser() {
       let response = await getEmployee({role: 4});
       
       setEmployeeList(response?.data?.employees);
-      
+      setUserFilteredList(response?.data?.employees)
     } catch (error) {
       console.log(error);
     }
@@ -71,11 +71,21 @@ function ViewSuperviser() {
     }
   };
 
-  const handleUserFilter = (searchKey) => {
-    if (searchKey.length > 0) {
-      const newArr = userList.filter((v) =>
-        v.name.toLowerCase().includes(searchKey.toLowerCase())
-      );
+  const handleUserFilter = (key) => {
+    if (key.length > 0) {
+      let newArr = userList?.filter((v, i) => {
+        return v?.user?.name?.toLowerCase().includes(key.toLowerCase());
+      });
+      setUserFilteredList(newArr);
+    } else {
+      setUserFilteredList(userList);
+    }
+  };
+  const handleProjectFilter = (key) => {
+    if (key.length > 0) {
+      let newArr = userList?.filter((v, i) => {
+        return v?.project?.name?.toLowerCase().includes(key.toLowerCase());
+      });
       setUserFilteredList(newArr);
     } else {
       setUserFilteredList(userList);
@@ -103,14 +113,35 @@ function ViewSuperviser() {
       toast.error("Internal Server Error");
     }
   }
+  const handleTeamLeaderRemoveFunc = async (user_id, project_id) => {
+    const isConfirmed = window.confirm("Are you sure you want to remove the team leader from the project?");
+    
+    if (!isConfirmed) return; // Exit if the user cancels the confirmation
+  
+    try {
+      const response = await removeTeamLeader({ user_id, project_id });
+  
+      if (response?.data.message === "Team leader removed successfully from the project") {
+        toast.success("Team leader removed successfully from the project");
+        setShowPopUpForm(false);
+        getTeamLeaderListFunc();
+      } else {
+        toast.error("Something went wrong");
+      }
+    } catch (error) {
+      toast.error("Internal Server Error");
+    }
+  };
+  
   return (
     <>
       <div
         className="mt-3 mx-4 border rounded shadow-sm"
         style={{ overflow: "auto" }}
       >
-        <div className="d-flex align-items-center  m-4 ">
-          <div className="d-flex align-items-center w-50 border rounded p-2">
+        <div className="d-flex row align-items-center  m-4 ">
+          <div className="col-4">
+          <div className="d-flex align-items-center  border rounded p-2">
             <i className="fa fa-search text-secondary me-3"></i>{" "}
             <input
               onChange={(e) => handleUserFilter(e.target.value)}
@@ -119,12 +150,27 @@ function ViewSuperviser() {
               placeholder="Search Team Leader"
             />
           </div>
+          </div>
+          <div className="col-4">
+          <div className="d-flex align-items-center  border rounded p-2">
+            <i className="fa fa-search text-secondary me-3"></i>{" "}
+            <input
+              onChange={(e) => handleProjectFilter(e.target.value)}
+              className=""
+              style={{ border: "none", outline: "none" }}
+              placeholder="Search Project"
+            />
+          </div>
+          </div>
+          <div className="col-4">
           <button
             onClick={() => setShowPopUpForm(true)}
-            className="btn btn-primary w-20 ms-3"
+            className="btn btn-primary  ms-3"
           >
             Assign Team Leader <i className="ms-2 fa fa-plus"></i>
           </button>
+          </div>
+          
         </div>
 
         <table class="table table-striped ">
@@ -135,6 +181,7 @@ function ViewSuperviser() {
               <th scope="col">Project</th>
               <th scope="col">Contact No.</th>
               <th scope="col">Designation</th>
+              <th scope="col">Action</th>
               
             </tr>
           </thead>
@@ -166,6 +213,10 @@ function ViewSuperviser() {
                    <td className="pt-4">{v?.project?.name}</td>
                   <td className="pt-4">{v?.user?.contact}</td>
                   <td className="pt-4">{v?.user?.designation} </td>
+                  <td className="pt-4">
+                    <i className="fa fa-users text-primary mx-1"></i>
+                    <i className="fa fa-trash text-danger mx-1" onClick={()=>handleTeamLeaderRemoveFunc(v?.user_id, v?.project_id)}></i>
+                     </td>
                   
                 </tr>
               );
