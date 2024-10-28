@@ -34,6 +34,16 @@ export const login = async (formData) => {
     throw error;
   }
 };
+export const resetPassword = async (formData) => {
+  try {
+    const response = await axios.post(BASE_URL+"reset-password" , formData);
+    return (response);
+  } catch (error) {
+    // Handle error (e.g., log or throw an error)
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
 export const addEmployee = async (formData) => {
   try {
     const response = await axios.post(BASE_URL+"add-employee" , formData, getConfig());
